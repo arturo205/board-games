@@ -1,0 +1,5 @@
+<div class="square-layout" (click)="onClick()" [ngClass]="{'circle-layout': squareValue === 'O', 'cross-layout': squareValue === 'X', 'empty-layout': squareValue === ' '}">
+  <p class="square-p">
+    {{ squareValue }}
+  </p>
+</div>

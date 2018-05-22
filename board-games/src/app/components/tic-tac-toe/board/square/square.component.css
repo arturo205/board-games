@@ -1,0 +1,27 @@
+.square-layout {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+    margin: 5px;
+    font-weight: 500;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.square-p {
+    margin-bottom: 0;
+}
+
+.circle-layout {
+    background-color: lightcoral;
+}
+
+.cross-layout {
+    background-color: lightblue;
+}
+
+.empty-layout {
+    background-color: lightgrey;
+}
