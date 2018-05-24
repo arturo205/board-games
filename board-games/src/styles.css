@@ -1,1 +1,10 @@
 @import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+
+@font-face {
+    font-family: 'crackman';
+    src: url('assets/fonts/crackman/crackman.ttf') format('truetype');
+}
+
+.row {
+    margin: 0;
+}

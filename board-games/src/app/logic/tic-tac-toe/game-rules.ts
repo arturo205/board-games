@@ -5,8 +5,9 @@ export class TicTacToeLogic {
     public static turn: boolean = true;
     public static message: string = "";
     public static turnMessage: string = "";
-    private static playerOneValue = "O";
-    private static playerTwoValue = "X";
+    private static playerOneValue: string = "O";
+    private static playerTwoValue: string = "X";
+    private static gameOver: boolean = false;
   
     constructor() { }
   
@@ -20,19 +21,22 @@ export class TicTacToeLogic {
     }
 
     public static performMove(key: number): void {
-        if (!this.squaresState[key].includes(this.playerOneValue) && !this.squaresState[key].includes(this.playerTwoValue)) {
-            this.squaresState[key] = this.getCurrentTurnValue();
-            console.log(this.checkForWinner());
-            if (this.checkForWinner() === -1) {
-                this.turn = !this.turn;
-                this.updateTurnMessage();
+        if (!this.gameOver) {
+            if (!this.squaresState[key].includes(this.playerOneValue) && !this.squaresState[key].includes(this.playerTwoValue)) {
+                this.squaresState[key] = this.getCurrentTurnValue();
+                console.log(this.checkForWinner());
+                if (this.checkForWinner() === -1) {
+                    this.turn = !this.turn;
+                    this.updateTurnMessage();
+                }
+                else {
+                    this.message = "Congratulations!!! Player " + this.getCurrentTurnValue() + " won!!!";
+                    this.gameOver = true;
+                }
             }
             else {
-                this.message = "Congratulations!!! Player " + this.getCurrentTurnValue() + " won!!!";
+                this.message = "Cannot choose this square! Please choose another one!";
             }
-        }
-        else {
-            this.message = "Cannot choose this square! Please choose another one!";
         }
     }
 
