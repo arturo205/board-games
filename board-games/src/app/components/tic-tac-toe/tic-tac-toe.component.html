@@ -1,5 +1,6 @@
-<section>
+<div class="wrapper">
   <div id="tic-tac-toe">
-    <app-board></app-board>
+    <app-board #board></app-board>
+    <div id="restart-button" (click)="restartGame()">Restart Game</div>
   </div>
-</section>
+</div>

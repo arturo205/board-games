@@ -1,17 +1,20 @@
 <section>
-  <div class="row board-layout" (click)="boardClick()">
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-    <app-square #squares></app-square>
-  </div>
-  <div>
+  <div class="messages-panel"
+       [ngClass]="{'red-turn': status === 0, 
+                   'blue-turn': status === 1, 
+                   'victory': status === 2}">
     <p>{{ turnMessage }}</p>
     <p>{{ message }}</p>
+  </div>
+  <div id="board-layout" class="row" (click)="boardClick()">
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
+    <app-square #squares></app-square>
   </div>
 </section>

@@ -2,17 +2,18 @@ export class TicTacToeLogic {
 
     public static squaresState: Array<string> = new Array<string>();
     private static winnerCombinations: Array<{keyA: number, keyB: number, keyC: number}> = new Array<any>();
+    public static winnerCombination: any;
     public static turn: boolean = true;
-    public static message: string = "";
-    public static turnMessage: string = "";
+    public static message: string = " ";
+    public static turnMessage: string = " ";
     private static playerOneValue: string = "O";
     private static playerTwoValue: string = "X";
-    private static gameOver: boolean = false;
+    public static gameOver: boolean = false;
   
     constructor() { }
   
     public static initializeLogic(initialArray: Array<string>): void {
-        this.squaresState.splice(0, this.squaresState.length);
+        this.initializeVariables();
         this.buildMovementsToWin();
         initialArray.forEach((value) => {
             this.squaresState.push(value);
@@ -20,18 +21,28 @@ export class TicTacToeLogic {
         this.updateTurnMessage();
     }
 
+    private static initializeVariables(): void {
+        this.squaresState.splice(0, this.squaresState.length);
+        this.turn = true;
+        this.message = " ";
+        this.turnMessage = " ";
+        this.gameOver = false;
+        this.winnerCombination = null;
+    }
+
     public static performMove(key: number): void {
         if (!this.gameOver) {
             if (!this.squaresState[key].includes(this.playerOneValue) && !this.squaresState[key].includes(this.playerTwoValue)) {
                 this.squaresState[key] = this.getCurrentTurnValue();
-                console.log(this.checkForWinner());
-                if (this.checkForWinner() === -1) {
+                let winnerCombinationIndex = this.checkForWinner();
+                if (winnerCombinationIndex === -1) {
                     this.turn = !this.turn;
                     this.updateTurnMessage();
                 }
                 else {
                     this.message = "Congratulations!!! Player " + this.getCurrentTurnValue() + " won!!!";
                     this.gameOver = true;
+                    this.winnerCombination = this.winnerCombinations[winnerCombinationIndex];
                 }
             }
             else {

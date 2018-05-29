@@ -15,13 +15,51 @@
 }
 
 .circle-layout {
-    background-color: lightcoral;
+    background-color: rgb(240, 128, 128);
+    color: rgb(139, 0, 0);
 }
 
 .cross-layout {
-    background-color: lightblue;
+    background-color: rgb(173, 216, 230);
+    color: rgb(0, 0, 139);
 }
 
 .empty-layout {
-    background-color: lightgrey;
+    background-color: rgba(211, 211, 211, 0.5);
+    color: rgba(169, 169, 169, 0.5);
+}
+
+.winner-layout {
+    background-color: rgb(144, 238, 144);
+    color: rgb(0, 128, 0);
+}
+
+.non-winner-layout {
+    background-color: rgba(211, 211, 211, 0.5);
+    color: rgba(169, 169, 169, 0.5);
+}
+
+.circle-layout:hover {
+    background-color: rgb(235, 93, 93);
+    color: rgb(97, 0, 0);
+}
+
+.cross-layout:hover {
+    background-color: rgb(122, 204, 231);
+    color: rgb(2, 2, 97);
+}
+
+.empty-layout:hover {
+    background-color: rgba(182, 182, 182, 0.5);
+    color: rgba(107, 107, 107, 0.5);
+}
+
+.winner-layout:hover {
+    background-color: rgb(103, 212, 103);
+    color: rgb(0, 99, 0);
+}
+
+.non-winner-layout:hover {
+    background-color: rgba(182, 182, 182, 0.5);
+    color: rgba(107, 107, 107, 0.5);
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BoardComponent } from 'app/components/tic-tac-toe/board/board.component';
 
 @Component({
   selector: 'app-tic-tac-toe',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tic-tac-toe.component.css']
 })
 export class TicTacToeComponent implements OnInit {
+  @ViewChild('board') board: BoardComponent;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  public restartGame(): void {
+    this.board.resetBoard();
   }
 
 }
