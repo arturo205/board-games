@@ -7,7 +7,7 @@
     font-size: 40px;
     margin: 5px;
     font-weight: 500;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .square-p {
@@ -17,49 +17,69 @@
 .circle-layout {
     background-color: rgb(240, 128, 128);
     color: rgb(139, 0, 0);
+    animation: none;
 }
 
 .cross-layout {
     background-color: rgb(173, 216, 230);
     color: rgb(0, 0, 139);
+    animation: none;
 }
 
 .empty-layout {
-    background-color: rgba(211, 211, 211, 0.5);
-    color: rgba(169, 169, 169, 0.5);
+    background-color: rgba(226, 226, 226, 0.5);
+    color: rgba(112, 112, 112, 0.5);
 }
 
 .winner-layout {
-    background-color: rgb(144, 238, 144);
-    color: rgb(0, 128, 0);
+    color: rgb(0, 99, 0);
+    background: linear-gradient(90deg, rgb(156, 231, 156), rgb(55, 180, 55));
+    background-size: 500% 500%;
+    animation: gradient 1s ease infinite;
 }
 
 .non-winner-layout {
     background-color: rgba(211, 211, 211, 0.5);
-    color: rgba(169, 169, 169, 0.5);
+    color: rgba(107, 107, 107, 0.5);
+    animation: none;
 }
 
 .circle-layout:hover {
-    background-color: rgb(235, 93, 93);
     color: rgb(97, 0, 0);
+    background: linear-gradient(90deg, rgb(235, 93, 93), rgb(199, 24, 24));
+    background-size: 500% 500%;
+    animation: gradient 1s ease infinite;
 }
 
 .cross-layout:hover {
-    background-color: rgb(122, 204, 231);
     color: rgb(2, 2, 97);
+    background: linear-gradient(90deg, rgb(122, 204, 231), rgb(66, 97, 235));
+    background-size: 500% 500%;
+    animation: gradient 1s ease infinite;
 }
 
 .empty-layout:hover {
-    background-color: rgba(182, 182, 182, 0.5);
-    color: rgba(107, 107, 107, 0.5);
+    background: linear-gradient(90deg, rgba(226, 226, 226, 0.5), rgba(141, 141, 141, 0.5));
+    background-size: 500% 500%;
+    animation: gradient 1s ease infinite;
 }
 
 .winner-layout:hover {
-    background-color: rgb(103, 212, 103);
     color: rgb(0, 99, 0);
+    background: linear-gradient(90deg, rgb(103, 212, 103), rgb(103, 212, 103));
+    background-size: 500% 500%;
+    animation: gradient 1s ease infinite;
 }
 
 .non-winner-layout:hover {
-    background-color: rgba(182, 182, 182, 0.5);
     color: rgba(107, 107, 107, 0.5);
+    background: linear-gradient(90deg, rgba(211, 211, 211, 0.5), rgba(211, 211, 211, 0.5));
+    background-size: 500% 500%;
+    animation: gradient 1s ease infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
 }

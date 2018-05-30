@@ -3,7 +3,6 @@
        [ngClass]="{'red-turn': status === 0, 
                    'blue-turn': status === 1, 
                    'victory': status === 2}">
-    <p>{{ turnMessage }}</p>
     <p>{{ message }}</p>
   </div>
   <div id="board-layout" class="row" (click)="boardClick()">

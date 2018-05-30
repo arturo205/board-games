@@ -36,10 +36,19 @@ export class TicTacToeLogic {
                 this.squaresState[key] = this.getCurrentTurnValue();
                 let winnerCombinationIndex = this.checkForWinner();
                 if (winnerCombinationIndex === -1) {
-                    this.turn = !this.turn;
-                    this.updateTurnMessage();
+                    if (this.freeSquaresLeft()) {
+                        this.turn = !this.turn;
+                        this.updateTurnMessage();
+                    }
+                    else {
+                        this.turnMessage = "";
+                        this.message = "There are no winners today. Try again!"
+                        this.gameOver = true;
+                        this.winnerCombination = {keyA: -1, keyB: -1, keyC: -1};
+                    }
                 }
                 else {
+                    this.turnMessage = "";
                     this.message = "Congratulations!!! Player " + this.getCurrentTurnValue() + " won!!!";
                     this.gameOver = true;
                     this.winnerCombination = this.winnerCombinations[winnerCombinationIndex];
@@ -49,6 +58,18 @@ export class TicTacToeLogic {
                 this.message = "Cannot choose this square! Please choose another one!";
             }
         }
+    }
+
+    private static freeSquaresLeft(): boolean {
+        let freeSquaresFound = false;
+
+        this.squaresState.forEach(square => {
+            if (square === " ") {
+                freeSquaresFound = true;
+            }
+        });
+
+        return freeSquaresFound;
     }
 
     private static buildMovementsToWin(): void {
@@ -64,7 +85,7 @@ export class TicTacToeLogic {
     }
 
     public static updateTurnMessage(): void {
-        this.turnMessage = "Player " + this.getCurrentTurnValue() + " please make your move!";
+        this.turnMessage = "Player " + this.getCurrentTurnValue() + " please make your move! ";
         this.message = "";
     }
 

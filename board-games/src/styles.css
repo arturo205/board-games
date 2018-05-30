@@ -1,8 +1,23 @@
 @import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
 
 @font-face {
+    font-family: 'arcade';
+    src: url('assets/fonts/arcade/ARCADE.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'chargen';
+    src: url('assets/fonts/chargen/chargen.ttf') format('truetype');
+}
+
+@font-face {
     font-family: 'crackman';
     src: url('assets/fonts/crackman/crackman.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'tetri';
+    src: url('assets/fonts/tetri/tetri.ttf') format('truetype');
 }
 
 .row {

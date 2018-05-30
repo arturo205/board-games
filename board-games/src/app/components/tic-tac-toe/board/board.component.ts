@@ -11,7 +11,6 @@ export class BoardComponent implements OnInit {
   @ViewChildren('squares') squares: QueryList<SquareComponent>;
 
   public message: string = "";
-  public turnMessage: string = "";
   public status: number = 0;          // 0: Turn O        1: Turn X        2: Winner
   private logic: TicTacToeLogic = new TicTacToeLogic();
 
@@ -57,8 +56,7 @@ export class BoardComponent implements OnInit {
   }
 
   private updateMessages(): void {
-    this.message = TicTacToeLogic.message;
-    this.turnMessage = TicTacToeLogic.turnMessage;
+    this.message = TicTacToeLogic.turnMessage + TicTacToeLogic.message;
   }
 
   public resetBoard(): void {

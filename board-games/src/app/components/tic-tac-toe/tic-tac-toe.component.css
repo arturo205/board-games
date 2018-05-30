@@ -7,12 +7,18 @@
     background-size: 300px;
     width: 1400px;
     height: 700px;
-    -webkit-animation: slide 15s linear infinite;
+    -webkit-animation: slide 25s linear infinite;
+    animation: slide 25s linear infinite;
 }
 
 @-webkit-keyframes slide {
-    from { background-position: 0 0; }
-    to { background-position: 0px 600px; }
+    0% { background-position: 0 0; }
+    100% { background-position: 0px 600px; }
+}
+
+@keyframes slide {
+    0% { background-position: 0 0; }
+    100% { background-position: 0px 600px; }
 }
 
 #restart-button {
@@ -28,6 +34,7 @@
     vertical-align: middle;
     color: rgb(0, 2, 90);
     cursor: pointer;
+    font-family: chargen;
 }
 
 #restart-button:hover {

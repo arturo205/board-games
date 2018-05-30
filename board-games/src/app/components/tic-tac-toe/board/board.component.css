@@ -4,29 +4,29 @@
 }
 
 .messages-panel {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     border-width: 3px;
-    border-style: double;
-    font-weight: 500;
-    font-family: Arial, Helvetica, sans-serif;
+    border-style: ridge;
+    font-weight: 400;
+    font-family: arcade;
     font-size: 20px;
     width: 330px;
 }
 
 .red-turn  {
     border-color: rgba(121, 7, 7, 0.7);
-    background-color: rgba(165, 16, 16, 0.5);
-    color: rgba(121, 7, 7, 1);
+    background-color: rgba(206, 76, 76, 0.5);
+    color: rgb(92, 5, 5);
 }
 
 .blue-turn  {
     border-color: rgba(10, 69, 124, 0.7);
-    background-color: rgba(15, 106, 192, 0.5);
-    color: rgb(10, 64, 114);
+    background-color: rgba(86, 151, 212, 0.5);
+    color: rgb(8, 49, 88);
 }
 
 .victory  {
     border-color: rgba(12, 128, 27, 0.7);
-    background-color: rgba(16, 173, 37, 0.5);
-    color: rgba(12, 128, 27, 1);
+    background-color: rgba(88, 206, 104, 0.5);
+    color: rgb(7, 78, 16);
 }
