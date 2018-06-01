@@ -1,3 +1,17 @@
 <div id="sidebar">
-  Tic Tac Toe
+  <p [ngClass]="{'selected-game-option': selectedGame === 'TicTacToe', 
+                 'game-option': selectedGame !== 'TicTacToe'}" 
+                 (click)="onClick('TicTacToe')">
+    Tic Tac Toe
+  </p>
+  <p [ngClass]="{'selected-game-option': selectedGame === 'ConnectFour', 
+                 'game-option': selectedGame !== 'ConnectFour'}" 
+                 (click)="onClick('ConnectFour')">
+    Connect Four
+  </p>
+  <p [ngClass]="{'selected-game-option': selectedGame === 'Other', 
+                 'game-option': selectedGame !== 'Other'}" 
+                 (click)="onClick('Other')">
+    Other
+  </p>
 </div>

@@ -3,8 +3,8 @@
 }
 
 #tic-tac-toe {
-    background: url("/assets/images/wall.jpg") repeat 0 0;
-    background-size: 300px;
+    background: url("/assets/images/escheresque_2x.png") repeat 0 0;
+    background-size: 64px 40px;
     width: 1400px;
     height: 700px;
     -webkit-animation: slide 25s linear infinite;

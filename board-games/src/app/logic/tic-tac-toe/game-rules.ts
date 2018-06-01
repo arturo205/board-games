@@ -49,7 +49,7 @@ export class TicTacToeLogic {
                 }
                 else {
                     this.turnMessage = "";
-                    this.message = "Congratulations!!! Player " + this.getCurrentTurnValue() + " won!!!";
+                    this.message = "Congratulations! Player " + this.getCurrentTurnValue() + " won!!";
                     this.gameOver = true;
                     this.winnerCombination = this.winnerCombinations[winnerCombinationIndex];
                 }

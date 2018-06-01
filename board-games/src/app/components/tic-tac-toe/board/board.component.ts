@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
       initialArray.push(square.squareValue);
     });
     TicTacToeLogic.initializeLogic(initialArray);
-    this.updateMessages();
+    //this.updateMessages();
   }
   
   public boardClick(): void {

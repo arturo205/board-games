@@ -1,0 +1,17 @@
+.cf-square {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
+.empty {
+    background-color: lightgrey;
+}
+
+.player-one {
+    background-color: lightblue;
+}
+
+.player-two {
+    background-color: lightcoral;
+}

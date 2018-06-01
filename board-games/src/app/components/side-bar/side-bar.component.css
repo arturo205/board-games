@@ -1,10 +1,38 @@
 #sidebar {
-    background-color: #0e5788;
-    color: white;
-    font-size: 20px;
+    background: linear-gradient(#04204d, #ffffff);
+    font-size: 16px;
     font-family: chargen;
-    min-width: 150px;
-    max-width: 150px;
+    min-width: 180px;
+    max-width: 180px;
     min-height: 700px;
     max-height: 700px;
+    text-align: center;
+}
+
+.game-option {
+    background: linear-gradient(#ffffff00, #e9e9e9, #e9e9e9, #ffffff00);
+    color: #440000;
+    cursor: pointer;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+}
+
+.game-option:hover {
+    background: linear-gradient(#ffffff00, #fff563, #fff563, #ffffff00);
+    color: #700000;
+}
+
+.selected-game-option {
+    background: linear-gradient(#ffffff00, #8f0202, #8f0202, #ffffff00);
+    color: #ffe7a3;
+    cursor: pointer;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+}
+
+.selected-game-option:hover {
+    background: linear-gradient(#ffffff00, #5a0101, #5a0101, #ffffff00);
+    color: #f5d47c;
 }

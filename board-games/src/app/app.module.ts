@@ -8,6 +8,11 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { TicTacToeComponent } from './components/tic-tac-toe/tic-tac-toe.component';
 import { BoardComponent } from './components/tic-tac-toe/board/board.component';
 import { SquareComponent } from './components/tic-tac-toe/board/square/square.component';
+import { ConnectFourComponent } from './components/connect-four/connect-four.component';
+import { OtherComponent } from './components/other/other.component';
+import { CfBoardComponent } from './components/connect-four/cf-board/cf-board.component';
+import { CfSquareComponent } from './components/connect-four/cf-board/cf-square/cf-square.component';
+import { DynamicComponentService } from 'app/shared/services/dynamic-component.service';
 
 @NgModule({
   declarations: [
@@ -16,13 +21,18 @@ import { SquareComponent } from './components/tic-tac-toe/board/square/square.co
     SideBarComponent,
     TicTacToeComponent,
     BoardComponent,
-    SquareComponent
+    SquareComponent,
+    ConnectFourComponent,
+    OtherComponent,
+    CfBoardComponent,
+    CfSquareComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DynamicComponentService],
+  bootstrap: [AppComponent],
+  entryComponents: [CfSquareComponent]
 })
 export class AppModule { }

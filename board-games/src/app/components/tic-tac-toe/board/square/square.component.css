@@ -27,7 +27,7 @@
 }
 
 .empty-layout {
-    background-color: rgba(226, 226, 226, 0.5);
+    background-color: rgba(199, 199, 199, 0.5);
     color: rgba(112, 112, 112, 0.5);
 }
 
@@ -59,7 +59,7 @@
 }
 
 .empty-layout:hover {
-    background: linear-gradient(90deg, rgba(226, 226, 226, 0.5), rgba(141, 141, 141, 0.5));
+    background: linear-gradient(90deg, rgba(199, 199, 199, 0.5), rgba(141, 141, 141, 0.5));
     background-size: 500% 500%;
     animation: gradient 1s ease infinite;
 }

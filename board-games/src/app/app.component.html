@@ -1,11 +1,13 @@
 <div class="header-layout">
   <app-header></app-header>
 </div>
-<div class="row wrapper">
+<div class="row wrapper" (click)="onClick();">
   <div>
-    <app-side-bar></app-side-bar>
+    <app-side-bar #sideBar></app-side-bar>
   </div>
   <div>
-    <app-tic-tac-toe></app-tic-tac-toe>
+    <app-tic-tac-toe *ngIf="selectedGame === 'TicTacToe'"></app-tic-tac-toe>
+    <app-connect-four *ngIf="selectedGame === 'ConnectFour'"></app-connect-four>
+    <app-other *ngIf="selectedGame === 'Other'"></app-other>
   </div>
 </div>
