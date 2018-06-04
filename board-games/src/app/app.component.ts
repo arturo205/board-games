@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SideBarComponent } from 'app/components/side-bar/side-bar.component';
 import { Games } from 'app/logic/games';
+import { MultiplayerService } from './multiplayer/multiplayer.service';
 
 @Component({
   selector: 'app-root',

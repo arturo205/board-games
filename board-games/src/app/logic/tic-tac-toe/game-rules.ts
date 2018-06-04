@@ -94,6 +94,7 @@ export class TicTacToeLogic {
     }
 
     public static getState(key: number): string {
+        console.log('Current State is', this.squaresState)
         return this.squaresState[key];
     }
 

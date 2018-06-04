@@ -1,13 +1,15 @@
 <div class="header-layout">
-  <app-header></app-header>
+    <app-header></app-header>
 </div>
 <div class="row wrapper" (click)="onClick();">
-  <div>
-    <app-side-bar #sideBar></app-side-bar>
-  </div>
-  <div>
-    <app-tic-tac-toe *ngIf="selectedGame === 'TicTacToe'"></app-tic-tac-toe>
-    <app-connect-four *ngIf="selectedGame === 'ConnectFour'"></app-connect-four>
-    <app-other *ngIf="selectedGame === 'Other'"></app-other>
-  </div>
+    <div>
+        <app-side-bar #sideBar></app-side-bar>
+    </div>
+    <div>
+        <app-tic-tac-toe *ngIf="selectedGame === 'TicTacToe'"></app-tic-tac-toe>
+        <app-connect-four *ngIf="selectedGame === 'ConnectFour'"></app-connect-four>
+        <app-other *ngIf="selectedGame === 'Other'"></app-other>
+        <button ng-click="sendMessage('Working')">Send Message</button>
+        <app-multiplayer></app-multiplayer>
+    </div>
 </div>

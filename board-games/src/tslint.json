@@ -13,5 +13,9 @@
             "app",
             "kebab-case"
         ]
-    }
+    },
+    "include": [
+        "src/**/*",
+        "node_modules/ng-socket-io/index.ts"
+    ]
 }
