@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { SquareComponent } from 'app/components/tic-tac-toe/board/square/square.component';
 import { TicTacToeLogic } from 'app/logic/tic-tac-toe/game-rules';
+import { MultiplayerService } from 'app/shared/services/multiplayer.service';
+import { Movement } from 'app/shared/movement';
 
 @Component({
   selector: 'app-board',
@@ -13,10 +15,14 @@ export class BoardComponent implements OnInit {
   public message: string = "";
   public status: number = 0;          // 0: Turn O        1: Turn X        2: Winner
   private logic: TicTacToeLogic = new TicTacToeLogic();
+  public ioConnection: any;
+  public movements: Movement[] = [];
 
-  constructor() { }
+  constructor(private multiplayerService: MultiplayerService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.initializeMultiplayerConnection();
+  }
 
   ngAfterViewInit() {
     let initialArray: Array<string> = new Array<string>();
@@ -26,6 +32,18 @@ export class BoardComponent implements OnInit {
     });
     TicTacToeLogic.initializeLogic(initialArray);
     //this.updateMessages();
+  }
+
+  private initializeMultiplayerConnection(): void {
+    this.multiplayerService.initSocket();
+    this.ioConnection = this.multiplayerService.onMessage()
+      .subscribe((movement: Movement) => {
+        this.movements.push(movement);
+      });
+    this.multiplayerService.onEvent(Event.CONNECT)
+      .subscribe(() => {
+        console.log('connected');
+      });
   }
   
   public boardClick(): void {
