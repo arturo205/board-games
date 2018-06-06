@@ -3,6 +3,8 @@ import { SquareComponent } from 'app/components/tic-tac-toe/board/square/square.
 import { TicTacToeLogic } from 'app/logic/tic-tac-toe/game-rules';
 import { MultiplayerService } from 'app/shared/services/multiplayer.service';
 import { Movement } from 'app/shared/movement';
+import { Event } from 'app/shared/socket';
+import { Games } from 'app/logic/games';
 
 @Component({
   selector: 'app-board',
@@ -44,6 +46,10 @@ export class BoardComponent implements OnInit {
       .subscribe(() => {
         console.log('connected');
       });
+    this.multiplayerService.onEvent(Event.DISCONNECT)
+      .subscribe(() => {
+        console.log('disconnected');
+      });
   }
   
   public boardClick(): void {
@@ -58,6 +64,10 @@ export class BoardComponent implements OnInit {
     else {
       this.status = 1;
     }
+
+    let someMovement: Movement = new Movement(Games.TicTacToe);
+    someMovement.addMessage("Hola! Soy Arturo!");
+    this.multiplayerService.send(someMovement);
   }
 
   private setWinnerSquares(): void {

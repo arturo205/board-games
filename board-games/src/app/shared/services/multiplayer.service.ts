@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Movement } from 'app/shared/movement';
 import { Observable } from 'rxjs';
+import { Event } from 'app/shared/socket';
 
 import * as socketIO from 'socket.io-client';
 

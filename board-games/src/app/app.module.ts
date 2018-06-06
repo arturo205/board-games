@@ -13,6 +13,7 @@ import { OtherComponent } from './components/other/other.component';
 import { CfBoardComponent } from './components/connect-four/cf-board/cf-board.component';
 import { CfSquareComponent } from './components/connect-four/cf-board/cf-square/cf-square.component';
 import { DynamicComponentService } from 'app/shared/services/dynamic-component.service';
+import { MultiplayerService } from './shared/services/multiplayer.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { DynamicComponentService } from 'app/shared/services/dynamic-component.s
     BrowserModule,
     NgbModule.forRoot()
   ],
-  providers: [DynamicComponentService],
+  providers: [DynamicComponentService, MultiplayerService],
   bootstrap: [AppComponent],
   entryComponents: [CfSquareComponent]
 })
