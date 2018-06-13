@@ -17,13 +17,11 @@ export class BoardComponent implements OnInit {
   public message: string = "";
   public status: number = 0;          // 0: Turn O        1: Turn X        2: Winner
   private logic: TicTacToeLogic = new TicTacToeLogic();
-  public ioConnection: any;
-  public movements: Movement[] = [];
 
   constructor(private multiplayerService: MultiplayerService) { }
 
   ngOnInit() {
-    this.initializeMultiplayerConnection();
+    //this.initializeMultiplayerConnection();
   }
 
   ngAfterViewInit() {
@@ -36,7 +34,7 @@ export class BoardComponent implements OnInit {
     //this.updateMessages();
   }
 
-  private initializeMultiplayerConnection(): void {
+  /*private initializeMultiplayerConnection(): void {
     this.multiplayerService.initSocket();
     this.ioConnection = this.multiplayerService.onMessage()
       .subscribe((movement: Movement) => {
@@ -50,7 +48,7 @@ export class BoardComponent implements OnInit {
       .subscribe(() => {
         console.log('disconnected');
       });
-  }
+  }*/
   
   public boardClick(): void {
     this.updateMessages();
@@ -65,9 +63,9 @@ export class BoardComponent implements OnInit {
       this.status = 1;
     }
 
-    let someMovement: Movement = new Movement(Games.TicTacToe);
+    /*let someMovement: Movement = new Movement(Games.TicTacToe);
     someMovement.addMessage("Hola! Soy Arturo!");
-    this.multiplayerService.send(someMovement);
+    this.multiplayerService.send(someMovement);*/
   }
 
   private setWinnerSquares(): void {

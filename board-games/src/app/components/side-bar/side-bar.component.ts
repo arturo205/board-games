@@ -13,7 +13,7 @@ export class SideBarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.selectedGame = Games.TicTacToe;
+    this.selectedGame = Games.Login;
   }
 
   ngAfterViewInit() { }

@@ -6,6 +6,7 @@
     <app-side-bar #sideBar></app-side-bar>
   </div>
   <div>
+    <app-log-in *ngIf="selectedGame === 'Login'"></app-log-in>
     <app-tic-tac-toe *ngIf="selectedGame === 'TicTacToe'"></app-tic-tac-toe>
     <app-connect-four *ngIf="selectedGame === 'ConnectFour'"></app-connect-four>
     <app-other *ngIf="selectedGame === 'Other'"></app-other>

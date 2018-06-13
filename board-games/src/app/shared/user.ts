@@ -1,13 +1,15 @@
 export class User {
 
-    private id: number;
-    private name: string;
+    public socketId: string;
+    public userName: string;
+    public password: string;
 
-    constructor(name: string) {
-        this.name = name;
+    constructor(userName: string, password: string) {
+
+        this.socketId = "";
+        this.userName = userName;
+        this.password = password;
+
     }
 
-    public getId(): number {
-        return this.id;
-    }
 }

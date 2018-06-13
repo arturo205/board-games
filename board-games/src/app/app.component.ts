@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.selectedGame = Games.TicTacToe;
+    this.selectedGame = Games.Login;
   }
 
   public onClick(): void {

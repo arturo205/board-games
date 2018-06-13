@@ -14,6 +14,8 @@ import { CfBoardComponent } from './components/connect-four/cf-board/cf-board.co
 import { CfSquareComponent } from './components/connect-four/cf-board/cf-square/cf-square.component';
 import { DynamicComponentService } from 'app/shared/services/dynamic-component.service';
 import { MultiplayerService } from './shared/services/multiplayer.service';
+import { ChatComponent } from './shared/components/chat/chat.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { MultiplayerService } from './shared/services/multiplayer.service';
     ConnectFourComponent,
     OtherComponent,
     CfBoardComponent,
-    CfSquareComponent
+    CfSquareComponent,
+    ChatComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
