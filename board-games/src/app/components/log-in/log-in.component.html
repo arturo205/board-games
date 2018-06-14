@@ -1,37 +1,44 @@
 <section id="log-in">
-    <div class="groups">
-        <h1 class="title">SERVER</h1>
-        <div class="row">
-            <p class="labels">Server URL:</p>
-            <input #serverUrl class="text-field" type="text" value="http://localhost:8080">
+    <div class="row">
+        <div>
+            <div class="groups">
+                <h1 class="title">SERVER</h1>
+                <div class="row">
+                    <p class="labels">Server URL:</p>
+                    <input #serverUrl class="text-field" type="text" value="http://localhost:8080">
+                </div>
+                <div>
+                    <p *ngIf="multiplayerService.isConnected" class="connected-to-server">Connected to the server!</p>
+                    <p *ngIf="!multiplayerService.isConnected" class="not-connected-to-server">Not connected. Please connect</p>
+                </div>
+                <div class="row">
+                    <button class="buttons" (click)="connectToServer(serverUrl.value)">Connect</button>
+                </div>
+            </div>
+            <div class="groups">
+                <h1 class="title">USER</h1>
+                <div class="row">
+                    <p class="labels">Name:</p>
+                    <input #userName class="text-field" type="text">
+                </div>
+                <div class="row">
+                    <p class="labels">Password:</p>
+                    <input #password class="text-field" type="text">
+                </div>
+                <div>
+                    <p [ngClass]="{'connected-to-server': multiplayerService.loginState.result,
+                                'not-connected-to-server': !multiplayerService.loginState.result}" 
+                        class="server-message">{{ multiplayerService.loginState.message }}
+                    </p>
+                </div>
+                <div class="row">
+                    <button class="buttons" (click)="login(userName.value, password.value)">Login</button>
+                    <button class="buttons" (click)="createUser(userName.value, password.value)">Create User</button>
+                </div>
+            </div>
         </div>
         <div>
-            <p *ngIf="isConnected" class="connected-to-server">Connected to the server!</p>
-            <p *ngIf="!isConnected" class="not-connected-to-server">Not connected. Please connect</p>
-        </div>
-        <div class="row">
-            <button class="buttons" (click)="connectToServer(serverUrl.value)">Connect</button>
-        </div>
-    </div>
-    <div class="groups">
-        <h1 class="title">USER</h1>
-        <div class="row">
-            <p class="labels">Name:</p>
-            <input #userName class="text-field" type="text">
-        </div>
-        <div class="row">
-            <p class="labels">Password:</p>
-            <input #password class="text-field" type="text">
-        </div>
-        <div>
-            <p [ngClass]="{'connected-to-server': isLoggedIn,
-                           'not-connected-to-server': !isLoggedIn}" 
-                class="server-message">{{ loginMessage }}
-            </p>
-        </div>
-        <div class="row">
-            <button class="buttons" (click)="login(userName.value, password.value)">Login</button>
-            <button class="buttons" (click)="createUser(userName.value, password.value)">Create User</button>
+            <app-chat></app-chat>
         </div>
     </div>
 </section>

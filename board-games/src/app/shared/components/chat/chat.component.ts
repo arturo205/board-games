@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MultiplayerService } from 'app/shared/services/multiplayer.service';
+import { ChatMessage } from 'app/shared/chat-message';
 
 @Component({
   selector: 'app-chat',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(private multiplayerService: MultiplayerService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  public sendNewChatMessage(newChatMessage: string): void {
+
+    let message: ChatMessage = new ChatMessage(this.multiplayerService.currentUser, newChatMessage);
+    this.multiplayerService.addNewChatMessage(message);
+    
   }
 
 }

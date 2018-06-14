@@ -1,3 +1,21 @@
-<p>
-  chat works!
-</p>
+<div class="groups">
+    <h1 class="title">CONNECTED USERS</h1>
+    <ul>
+        <li *ngFor="let connectedUser of multiplayerService.allConnectedUsers" class="row">
+            <img src="assets/images/user.png" height="28" width="28">
+            <p class="user-data">{{ connectedUser.userName }}</p>
+        </li>
+    </ul>
+</div>
+<div class="groups">
+    <h1 class="title">CHAT</h1>
+    <div class="chat-box">
+      <p *ngFor="let chatMessage of multiplayerService.allChatMessages">
+        [ {{ chatMessage.user.userName }} ]: {{ chatMessage.message }}
+      </p>
+    </div>
+    <div class="row">
+      <input #newMessage class="text-field" type="text">
+      <button class="buttons" (click)="sendNewChatMessage(newMessage.value)">Send</button>
+    </div>
+</div>

@@ -20,9 +20,7 @@ export class BoardComponent implements OnInit {
 
   constructor(private multiplayerService: MultiplayerService) { }
 
-  ngOnInit() {
-    //this.initializeMultiplayerConnection();
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
     let initialArray: Array<string> = new Array<string>();
@@ -33,22 +31,6 @@ export class BoardComponent implements OnInit {
     TicTacToeLogic.initializeLogic(initialArray);
     //this.updateMessages();
   }
-
-  /*private initializeMultiplayerConnection(): void {
-    this.multiplayerService.initSocket();
-    this.ioConnection = this.multiplayerService.onMessage()
-      .subscribe((movement: Movement) => {
-        this.movements.push(movement);
-      });
-    this.multiplayerService.onEvent(Event.CONNECT)
-      .subscribe(() => {
-        console.log('connected');
-      });
-    this.multiplayerService.onEvent(Event.DISCONNECT)
-      .subscribe(() => {
-        console.log('disconnected');
-      });
-  }*/
   
   public boardClick(): void {
     this.updateMessages();
@@ -62,10 +44,6 @@ export class BoardComponent implements OnInit {
     else {
       this.status = 1;
     }
-
-    /*let someMovement: Movement = new Movement(Games.TicTacToe);
-    someMovement.addMessage("Hola! Soy Arturo!");
-    this.multiplayerService.send(someMovement);*/
   }
 
   private setWinnerSquares(): void {

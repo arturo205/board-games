@@ -1,0 +1,7 @@
+.chat-box {
+    background-color: rgb(241, 249, 255);
+    color: rgb(68, 83, 223);
+    overflow: scroll;
+    max-height: 200px;
+    margin: 3px 10px 5px 10px;
+}

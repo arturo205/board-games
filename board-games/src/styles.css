@@ -20,6 +20,44 @@
     src: url('assets/fonts/tetri/tetri.ttf') format('truetype');
 }
 
+.title {
+    color: rgb(25, 25, 189);
+    font-family: chargen;
+    font-size: 22px;
+    text-align: center;
+}
+
+.groups {
+    margin: 8px 8px 18px 8px;
+    padding: 10px;
+    border: 1px rgb(131, 174, 253) solid;
+    box-shadow: 7px 7px 14px #bddcff;
+    background-color: #dbe6ff;
+    min-width: 458px;
+}
+
+.user-data {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(0, 64, 107);
+    margin-left: 20px;
+}
+
+.text-field {
+    width: 300px;
+    height: 26px;
+}
+
+.buttons {
+    width: 150px;
+    height: 29px;
+    color: rgb(203, 241, 253);
+    background-color: rgb(87, 117, 199);
+    text-align: center;
+    margin: 0 auto;
+}
+
 .row {
     margin: 0;
 }

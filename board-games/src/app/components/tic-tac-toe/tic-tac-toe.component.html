@@ -1,6 +1,11 @@
 <div class="wrapper">
-  <div id="tic-tac-toe">
-    <app-board #board></app-board>
-    <div id="restart-button" (click)="restartGame()">Restart Game</div>
+  <div id="tic-tac-toe" class="row">
+    <div>
+      <app-board #board></app-board>
+      <div id="restart-button" (click)="restartGame()">Restart Game</div>
+    </div>
+    <div>
+      <app-chat></app-chat>
+    </div>
   </div>
 </div>

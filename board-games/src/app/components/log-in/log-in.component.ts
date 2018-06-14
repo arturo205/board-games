@@ -11,40 +11,13 @@ import { SystemMessage } from 'app/shared/system-message';
 })
 export class LogInComponent implements OnInit {
 
-  //public ioConnection: any;
-  public isConnected: boolean = false;
-  public isLoggedIn: boolean = false;
-  public loginMessage: string = "";
-
-  constructor(private multiplayerService: MultiplayerService) {
-    this.loginMessage = "Not logged in. Please login or create user";
-  }
+  constructor(private multiplayerService: MultiplayerService) { }
 
   ngOnInit() { }
 
   private connectToServer(serverUrl: string): void {
 
-    this.multiplayerService.initSocket(serverUrl);
-
-    this.multiplayerService.onAddUser().subscribe((sysMessage: SystemMessage) => {
-      this.isLoggedIn = sysMessage.result;
-      this.loginMessage = sysMessage.message;
-    });
-
-    this.multiplayerService.onLogin().subscribe((sysMessage: SystemMessage) => {
-      this.isLoggedIn = sysMessage.result;
-      this.loginMessage = sysMessage.message;
-    });
-
-    this.multiplayerService.onEvent(Event.CONNECT).subscribe(() => {
-      this.isConnected = true;
-      console.log('connected');
-    });
-
-    this.multiplayerService.onEvent(Event.DISCONNECT).subscribe(() => {
-      this.isConnected = false;
-      console.log('disconnected');
-    });
+    this.multiplayerService.connectToServer(serverUrl);
 
   }
 
