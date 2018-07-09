@@ -4,8 +4,8 @@
     font-family: chargen;
     min-width: 180px;
     max-width: 180px;
-    min-height: 700px;
-    max-height: 700px;
+    min-height: calc(100vh - 45px);
+    max-height: calc(100vh - 45px);
     text-align: center;
 }
 
@@ -34,5 +34,5 @@
 
 .selected-game-option:hover {
     background: linear-gradient(#ffffff00, #5a0101, #5a0101, #ffffff00);
-    color: #f5d47c;
+    color: #7c672d;
 }

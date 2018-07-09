@@ -1,4 +1,4 @@
-<div class="groups">
+<div class="groups connected-users-box">
     <h1 class="title">CONNECTED USERS</h1>
     <ul>
         <li *ngFor="let connectedUser of multiplayerService.allConnectedUsers" class="row">
@@ -9,13 +9,13 @@
 </div>
 <div class="groups">
     <h1 class="title">CHAT</h1>
-    <div class="chat-box">
-      <p *ngFor="let chatMessage of multiplayerService.allChatMessages">
-        [ {{ chatMessage.user.userName }} ]: {{ chatMessage.message }}
-      </p>
-    </div>
     <div class="row">
-      <input #newMessage class="text-field" type="text">
-      <button class="buttons" (click)="sendNewChatMessage(newMessage.value)">Send</button>
+        <input #newMessage id="newMessageInput" class="text-field" type="text" maxlength="40">
+        <button id="sendButton" class="buttons" (click)="sendNewChatMessage(newMessage.value)">Send</button>
+    </div>
+    <div class="chat-box">
+      <p *ngFor="let chatMessage of multiplayerService.allChatMessages.slice().reverse(); let i = index" id="chat{{i}}" class="chat-row">
+        [{{ chatMessage.user.userName }}]: {{ chatMessage.message }}
+      </p>
     </div>
 </div>

@@ -1,11 +1,12 @@
 <section>
   <div class="messages-panel"
-       [ngClass]="{'red-turn': status === 0, 
-                   'blue-turn': status === 1, 
-                   'victory': status === 2}">
-    <p>{{ message }}</p>
+       [ngClass]="{'red-turn': getTurnColor() === 'red', 
+                   'blue-turn': getTurnColor() === 'blue', 
+                   'victory': getTurnColor() === 'green'}">
+    <p *ngIf="multiplayerService.getGeneralMessage() !== null && multiplayerService.getGeneralMessage().length > 0">{{ multiplayerService.getGeneralMessage() }}</p>
+    <p *ngIf="multiplayerService.getGeneralMessage() === null || multiplayerService.getGeneralMessage().length < 5">{{ welcomeMessage }}</p>
   </div>
-  <div id="board-layout" class="row" (click)="boardClick()">
+  <div id="board-layout" class="row">
     <app-square #squares></app-square>
     <app-square #squares></app-square>
     <app-square #squares></app-square>

@@ -13,11 +13,25 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() { }
 
+  ngAfterViewInit() {
+
+    var newMessageInput: HTMLInputElement = <HTMLInputElement>document.getElementById("newMessageInput");
+    
+    newMessageInput.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        document.getElementById("sendButton").click();
+      }
+    });
+
+  }
+
   public sendNewChatMessage(newChatMessage: string): void {
 
     let message: ChatMessage = new ChatMessage(this.multiplayerService.currentUser, newChatMessage);
     this.multiplayerService.addNewChatMessage(message);
-    
+    (<HTMLInputElement>document.getElementById("newMessageInput")).value = "";
+
   }
 
 }

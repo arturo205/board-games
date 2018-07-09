@@ -16,6 +16,7 @@ import { DynamicComponentService } from 'app/shared/services/dynamic-component.s
 import { MultiplayerService } from './shared/services/multiplayer.service';
 import { ChatComponent } from './shared/components/chat/chat.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LogInComponent } from './components/log-in/log-in.component';
     CfBoardComponent,
     CfSquareComponent,
     ChatComponent,
-    LogInComponent
+    LogInComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

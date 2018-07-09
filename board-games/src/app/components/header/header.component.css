@@ -1,6 +1,7 @@
 #header {
     color: white;
     font-size: 30px;
+    height: 45px;
     font-family: Tetri;
     background: linear-gradient(90deg, #04204d, #ffffff);
 }

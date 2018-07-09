@@ -1,3 +1,7 @@
+#log-in {
+    height: 100%;
+}
+
 .connected-to-server {
     color: darkgreen;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

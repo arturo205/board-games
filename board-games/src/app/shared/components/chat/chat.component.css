@@ -1,7 +1,19 @@
 .chat-box {
-    background-color: rgb(241, 249, 255);
+    background-color: rgba(241, 249, 255, 0.63);
+    border: 1px rgba(142, 206, 255, 0.705) solid;
+    box-shadow: 7px 7px 7px 7px 14px #dbe6ff;
     color: rgb(68, 83, 223);
-    overflow: scroll;
-    max-height: 200px;
-    margin: 3px 10px 5px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 230px;
+    max-height: 230px;
+    margin: 3px 10px 5px 10px; 
+}
+
+.chat-row {
+    margin: 3px 10px 3px 10px;
+}
+
+.connected-users-box {
+    min-height: 100px;
 }

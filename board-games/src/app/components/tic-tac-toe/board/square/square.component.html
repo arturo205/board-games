@@ -1,11 +1,11 @@
 <div class="square-layout" 
      (click)="onClick()" 
-     [ngClass]="{'circle-layout': squareValue === 'O', 
-                 'cross-layout': squareValue === 'X', 
-                 'empty-layout': squareValue === ' ', 
-                 'winner-layout': state === 1,
-                 'non-winner-layout': state === 2}">
-  <p class="square-p">
-    {{ squareValue }}
+     [ngClass]="{'circle-layout': getLayoutType() === 'player1', 
+                 'cross-layout': getLayoutType() === 'player2', 
+                 'empty-layout': getLayoutType() === 'empty', 
+                 'winner-layout': getLayoutType() === 'winner',
+                 'non-winner-layout': getLayoutType() === 'nonWinner'}">
+  <p class="square-p" *ngIf="multiplayerService.localTicTacToeSquares.length === 9">
+    {{ multiplayerService.localTicTacToeSquares[key] }}
   </p>
 </div>

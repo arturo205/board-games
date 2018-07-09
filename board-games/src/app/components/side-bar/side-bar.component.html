@@ -1,22 +1,24 @@
 <div id="sidebar">
-  <p [ngClass]="{'selected-game-option': selectedGame === 'Login', 
-                'game-option': selectedGame !== 'Login'}" 
-                 (click)="onClick('Login')">
-    Login
-  </p>
-  <p [ngClass]="{'selected-game-option': selectedGame === 'TicTacToe', 
-                 'game-option': selectedGame !== 'TicTacToe'}" 
-                 (click)="onClick('TicTacToe')">
-    Tic Tac Toe
-  </p>
-  <p [ngClass]="{'selected-game-option': selectedGame === 'ConnectFour', 
-                 'game-option': selectedGame !== 'ConnectFour'}" 
-                 (click)="onClick('ConnectFour')">
-    Connect Four
-  </p>
-  <p [ngClass]="{'selected-game-option': selectedGame === 'Other', 
-                 'game-option': selectedGame !== 'Other'}" 
-                 (click)="onClick('Other')">
-    Other
-  </p>
+    <p [ngClass]="{'selected-game-option': selectedGame === 'Login', 
+                'game-option': selectedGame !== 'Login'}" (click)="onClick('Login')">
+        Login
+    </p>
+    <p [ngClass]="{'selected-game-option': selectedGame === 'TicTacToe', 
+                 'game-option': selectedGame !== 'TicTacToe'}" (click)="onClick('TicTacToe')">
+        Tic Tac Toe
+    </p>
+    <p [ngClass]="{'selected-game-option': selectedGame === 'ConnectFour', 
+                 'game-option': selectedGame !== 'ConnectFour'}" (click)="onClick('ConnectFour')">
+        Connect Four
+    </p>
+    <p [ngClass]="{'selected-game-option': selectedGame === 'Other', 
+                 'game-option': selectedGame !== 'Other'}" (click)="onClick('Other')">
+        Other
+    </p>
 </div>
+
+<app-modal id="not-logged-in">
+    <p class="title">System Message</p>
+    <p class="app-modal-main-text">Please log in or create a new player to open any game</p>
+    <button class="buttons" (click)="closeModal('not-logged-in')">Close</button>
+</app-modal>
