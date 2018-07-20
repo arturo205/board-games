@@ -3,5 +3,6 @@
     font-size: 30px;
     height: 45px;
     font-family: Tetri;
-    background: linear-gradient(90deg, #04204d, #ffffff);
+    background: linear-gradient(90deg, rgb(4, 32, 77), rgb(255, 255, 255));
+    border-bottom: 1px rgb(33, 32, 88) solid;
 }

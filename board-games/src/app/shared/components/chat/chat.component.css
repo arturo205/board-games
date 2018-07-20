@@ -2,18 +2,58 @@
     background-color: rgba(241, 249, 255, 0.63);
     border: 1px rgba(142, 206, 255, 0.705) solid;
     box-shadow: 7px 7px 7px 7px 14px #dbe6ff;
-    color: rgb(68, 83, 223);
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 230px;
     max-height: 230px;
-    margin: 3px 10px 5px 10px; 
+    padding-top: 8px;
 }
 
 .chat-row {
-    margin: 3px 10px 3px 10px;
+    margin: 1px 10px 1px 10px;
 }
 
-.connected-users-box {
+.connected-players-box {
     min-height: 100px;
+}
+
+.connected-players-box ul li p {
+    line-height: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.icon-holder {
+    height: 40px;
+    width: 40px;
+    content: "";
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px black solid;
+}
+
+.icon-holder-chat-box {
+    height: 30px;
+    width: 30px;
+    content: "";
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 1px black solid;
+    margin-right: 8px;
+}
+
+.chat-name {
+    color: rgb(121, 6, 6);
+}
+
+.chat-message {
+    color: rgb(57, 79, 139);
 }

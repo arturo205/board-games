@@ -21,3 +21,35 @@
     height: 26px;
     color: darkslategray;
 }
+
+input[type="radio"] {
+    margin-right: -30px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    -ms-transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+}
+
+.server-options {
+    color: rgb(35, 87, 165);
+}
+
+.icons-menu {
+    width: 220px;
+    height: 27px;
+    margin-right: 10px;
+}
+
+.icon-holder {
+    height: 70px;
+    width: 70px;
+    content: "";
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 3px black solid;
+}

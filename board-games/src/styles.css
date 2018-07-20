@@ -40,7 +40,6 @@
 }
 
 .title {
-    /*color: rgb(25, 25, 189);*/
     color: rgb(23, 54, 122);
     font-family: chargen;
     font-size: 22px;
@@ -49,19 +48,24 @@
 
 .groups {
     margin: 8px 8px 18px 8px;
-    padding: 10px;
+    padding: 0px;
     border: 1px rgb(131, 174, 253) solid;
     box-shadow: 7px 7px 14px #bddcff;
     background-color: #dbe6ff;
     min-width: 458px;
+    border-radius: 14px;
 }
 
-.user-data {
+.groups-container {
+    padding: 10px;
+}
+
+.player-data {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 18px;
     font-weight: 400;
     color: rgb(0, 64, 107);
-    margin-left: 20px;
+    margin-left: 16px;
 }
 
 .text-field {
@@ -76,6 +80,12 @@
     background-color: rgb(87, 117, 199);
     text-align: center;
     margin: 0 auto;
+    border-radius: 16px;
+}
+
+.buttons:disabled {
+    background-color: rgb(179, 179, 179);
+    color: rgb(247, 247, 247);
 }
 
 .row {
@@ -94,4 +104,45 @@
     color: rgb(16, 40, 92);
     font-size: 16px;
     text-align: center;
+}
+
+.tabs {
+    background-color: rgb(137, 159, 211);
+    height: 36px;
+    border: 1px rgb(131, 174, 253) solid;
+    border-bottom: none;
+    font-family: chargen;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: center;
+    margin: 0;
+    color: rgb(16, 40, 92);
+    cursor: default;
+}
+
+.tabs:hover {
+    background-color: rgb(120, 139, 185);
+}
+
+.tabs p {
+    margin: 0;
+    line-height: 34px;
+}
+
+.active-tab {
+    background-color: rgb(201, 211, 236);
+}
+
+.active-tab:hover {
+    background-color: rgb(201, 211, 236);
+}
+
+.left-tab {
+    border-top-left-radius: 14px;
+    border-top-right-radius: 2px;
+}
+
+.right-tab {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 14px;
 }

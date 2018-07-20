@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Event } from 'app/shared/socket';
+import { Event } from '../socket';
 
 import * as socketIO from 'socket.io-client';
-import { ChatMessage } from 'app/shared/chat-message';
-import { User } from 'app/shared/user';
-import { SystemMessage } from 'app/shared/system-message';
-import { TicTacToeStatus } from 'app/logic/tic-tac-toe/server/tic-tac-toe-status';
-import { TicTacToeMove } from 'app/logic/tic-tac-toe/server/tic-tac-toe-move';
+import { ChatMessage } from '../chat-message';
+import { Player } from '../player';
+import { SystemMessage } from '../system-message';
+import { TicTacToeStatus } from '../../logic/tic-tac-toe/server/tic-tac-toe-status';
+import { TicTacToeMove } from '../../logic/tic-tac-toe/server/tic-tac-toe-move';
+import { Games } from 'app/logic/games';
 
 @Injectable()
 export class MultiplayerService {
 
     private socket: any;
-    public loginState: SystemMessage = new SystemMessage(false, "Not logged in. Please login or create a user");
+    public loginState: SystemMessage = new SystemMessage(false, "Not logged in. Please login or create a player");
     public isConnected: boolean = false;
-    public allConnectedUsers: Array<User> = new Array<User>();
+    public allConnectedPlayers: Array<Player> = new Array<Player>();
     public allChatMessages: Array<ChatMessage> = new Array<ChatMessage>();
-    public currentUser: User = new User("generic_user_local", "");
+    public currentPlayer: Player = new Player("generic_player_local", "", 0, 0);
     public serverTicTacToeStatus: TicTacToeStatus = new TicTacToeStatus();
     public localTicTacToeSquares: Array<string> = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
     public localMessage: string = "";
+    public joinedGame: Games = null;
 
     /**
      * Initialization
@@ -31,38 +33,59 @@ export class MultiplayerService {
     }
 
     /**
-     * User calls
+     * Player calls
      */
 
-    public addUser(user: User): void {
-        this.currentUser = user;
-        this.socket.emit('newUser', user);
+    public disconnectFromServer(): void {
+        this.socket.emit('disconnect');
+        this.socket = null;
     }
 
-    public onAddUser(): Observable<SystemMessage> {
-        return new Observable<SystemMessage>(observer => {
-            this.socket.on('newUser', (sysMessage: SystemMessage) => observer.next(sysMessage));
+    public addPlayer(player: Player): void {
+        this.currentPlayer = player;
+        this.socket.emit('newPlayer', player);
+    }
+
+    public onAddPlayer(): Observable<any> {
+        return new Observable<any>(observer => {
+            this.socket.on('newPlayer', (newPlayer: any) => observer.next(newPlayer));
         });
     }
 
-    public login(user: User): void {
-        this.currentUser = user;
-        this.socket.emit('login', user);
+    public updatePlayer(updatedPlayer: Player): void {
+        this.currentPlayer = updatedPlayer;
+        this.socket.emit('updatePlayer', updatedPlayer);
     }
 
-    public onLogin(): Observable<SystemMessage> {
+    public onUpdatePlayer(): Observable<SystemMessage> {
         return new Observable<SystemMessage>(observer => {
-            this.socket.on('login', (sysMessage: SystemMessage) => observer.next(sysMessage));
+            this.socket.on('updatePlayer', (message: SystemMessage) => observer.next(message));
         });
     }
 
-    public loadAllUsers(): void {
-        this.socket.emit('allUsers');
+    public login(name: string, password: string): void {
+        this.socket.emit('login', name, password);
     }
 
-    public onAllUsers(): Observable<Array<User>> {
-        return new Observable<Array<User>>(observer => {
-            this.socket.on('allUsers', (allUsers: Array<User>) => observer.next(allUsers));
+    public logout(): void {
+        this.socket.emit('logout');
+        this.resetMessages();
+        this.currentPlayer = new Player("generic_player_local", "", 0, 0);
+    }
+
+    public onLogin(): Observable<any> {
+        return new Observable<any>(observer => {
+            this.socket.on('login', (player: any) => observer.next(player));
+        });
+    }
+
+    public loadAllPlayers(): void {
+        this.socket.emit('allPlayers');
+    }
+
+    public onAllPlayers(): Observable<Array<Player>> {
+        return new Observable<Array<Player>>(observer => {
+            this.socket.on('allPlayers', (allPlayers: Array<Player>) => observer.next(allPlayers));
         });
     }
 
@@ -72,16 +95,16 @@ export class MultiplayerService {
         });
     }
 
-    public onConnect(user: User): Observable<Event> {
+    public onConnect(player: Player): Observable<Event> {
         return new Observable<Event>(observer => {
-            this.socket.on(Event.CONNECT, (user) => observer.next());
+            this.socket.on(Event.CONNECT, (player) => observer.next());
         });
     }
 
     private resetMessages(): void {
         this.loginState.result = false;
-        this.loginState.message = "Not logged in. Please login or create a user";
-        this.allConnectedUsers.splice(0, this.allConnectedUsers.length);
+        this.loginState.message = "Not logged in. Please login or create a player";
+        this.allConnectedPlayers.splice(0, this.allConnectedPlayers.length);
     }
 
     /**
@@ -103,7 +126,7 @@ export class MultiplayerService {
      */
 
     public joinTicTacToeGame(): void {
-        this.socket.emit('joinTicTacToe', this.currentUser);
+        this.socket.emit('joinTicTacToe', this.currentPlayer);
     }
 
     public onTicTacToeStatus(): Observable<TicTacToeStatus> {
@@ -126,6 +149,11 @@ export class MultiplayerService {
         this.socket.emit('resetTicTacToe');
     }
 
+    public leaveTicTacToe(): void {
+        this.socket.emit('leaveTicTacToe', this.currentPlayer);
+        this.joinedGame = null;
+    }
+
     /**
      * Listeners
      */
@@ -136,18 +164,39 @@ export class MultiplayerService {
 
             this.initSocket(serverUrl);
 
-            this.onAddUser().subscribe((sysMessage: SystemMessage) => {
-                this.loginState = sysMessage;
-                this.loadAllUsers();
+            this.onAddPlayer().subscribe((player: any) => {
+                if (player['name'] !== undefined) {
+                    this.currentPlayer = new Player(player.name, player.password, player.colorId, player.iconId);
+                    this.currentPlayer.id = player.id;
+                    this.loginState = new SystemMessage(true, 'The player was successfully created! You are logged in');
+                }
+                else if (player['message'] !== undefined) {
+                    this.loginState = new SystemMessage(player.result, player.message);
+                }
+                this.loadAllPlayers();
             });
 
-            this.onLogin().subscribe((sysMessage: SystemMessage) => {
-                this.loginState = sysMessage;
-                this.loadAllUsers();
+            this.onUpdatePlayer().subscribe((message: SystemMessage) => {
+                this.loginState = message;
+                if (this.loginState.result === false) {
+                    this.allConnectedPlayers.splice(0, this.allConnectedPlayers.length);
+                }
             });
 
-            this.onAllUsers().subscribe((allUsers: Array<User>) => {
-                this.allConnectedUsers = allUsers;
+            this.onLogin().subscribe((player: any) => {
+                if (player['name'] !== undefined) {
+                    this.currentPlayer = new Player(player.name, player.password, player.colorId, player.iconId);
+                    this.currentPlayer.id = player.id;
+                    this.loginState = new SystemMessage(true, 'You logged in! Welcome ' + this.currentPlayer.name);
+                }
+                else if (player['message'] !== undefined) {
+                    this.loginState = new SystemMessage(player.result, player.message);
+                }
+                this.loadAllPlayers();
+            });
+
+            this.onAllPlayers().subscribe((allPlayers: Array<Player>) => {
+                this.allConnectedPlayers = allPlayers;
             });
 
             this.onChatMessage().subscribe((allChatMessages: Array<ChatMessage>) => {
@@ -156,7 +205,7 @@ export class MultiplayerService {
 
             this.onEvent(Event.CONNECT).subscribe(() => {
                 this.isConnected = true;
-                this.loadAllUsers();
+                this.loadAllPlayers();
                 console.log('connected');
             });
 
@@ -185,19 +234,39 @@ export class MultiplayerService {
 
     private updateLocalTicTacToeObjects(): void {
 
-        this.serverTicTacToeStatus.squaresStatus.forEach((serverUserObj, index) => {
-            if (serverUserObj !== null && this.serverTicTacToeStatus.playersConnected.length === 2 && this.serverTicTacToeStatus.charactersFromPlayers.length == 2) {
-                if (serverUserObj.userName === this.serverTicTacToeStatus.playersConnected[0].userName) {
+        console.log("updateLocalTicTacToeObjects");
+        console.log(this.serverTicTacToeStatus);
+        this.joinedGame = this.playerJoinedTicTacToe() ? Games.TicTacToe : null;
+
+        this.serverTicTacToeStatus.squaresStatus.forEach((serverPlayerObj, index) => {
+            if (serverPlayerObj !== null && this.serverTicTacToeStatus.playersConnected.length === 2 && this.serverTicTacToeStatus.charactersFromPlayers.length == 2) {
+                if (serverPlayerObj.name === this.serverTicTacToeStatus.playersConnected[0].name) {
                     this.localTicTacToeSquares[index] = this.serverTicTacToeStatus.charactersFromPlayers[0];
                 }
-                else if (serverUserObj.userName === this.serverTicTacToeStatus.playersConnected[1].userName) {
+                else if (serverPlayerObj.name === this.serverTicTacToeStatus.playersConnected[1].name) {
                     this.localTicTacToeSquares[index] = this.serverTicTacToeStatus.charactersFromPlayers[1];
                 }
             }
-            else if (serverUserObj === null && this.serverTicTacToeStatus.playersConnected.length === 2 && this.serverTicTacToeStatus.charactersFromPlayers.length == 2) {
+            else if (serverPlayerObj === null && this.serverTicTacToeStatus.playersConnected.length === 2 && this.serverTicTacToeStatus.charactersFromPlayers.length == 2) {
                 this.localTicTacToeSquares[index] = " ";
             }
+            console.log("updateLocalTicTacToeObjects 2");
+            console.log(this.localTicTacToeSquares);
         });
+
+    }
+
+    private playerJoinedTicTacToe(): boolean {
+
+        let playerIsInArray: boolean = false;
+
+        this.serverTicTacToeStatus.playersConnected.forEach(player => {
+            if (player.name === this.currentPlayer.name) {
+                playerIsInArray = true;
+            }
+        });
+
+        return playerIsInArray;
 
     }
 }

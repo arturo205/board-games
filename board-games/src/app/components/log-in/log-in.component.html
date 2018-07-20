@@ -1,39 +1,172 @@
 <section id="log-in" class="app-main-background">
     <div class="row">
         <div>
-            <div class="groups">
+            <div class="groups groups-container">
                 <h1 class="title">SERVER</h1>
-                <div class="row">
-                    <p class="labels">Server URL:</p>
-                    <input #serverUrl class="text-field" type="text" value="http://localhost:8080">
-                </div>
                 <div>
                     <p *ngIf="multiplayerService.isConnected" class="connected-to-server">Connected to the server!</p>
                     <p *ngIf="!multiplayerService.isConnected" class="not-connected-to-server">Not connected. Please connect</p>
                 </div>
+                <div class="server-options">
+                    <label>
+                        <input type="radio" name="server" value="server1" class="labels" checked [disabled]="isRadioButtonDisabled(0)" />Server 1 (United States)</label>
+                    <br>
+                    <label>
+                        <input type="radio" name="server" value="server2" class="labels" [disabled]="isRadioButtonDisabled(1)" />Server 2 (Europe)</label>
+                    <br>
+                    <label>
+                        <input type="radio" name="server" value="server3" class="labels" [disabled]="isRadioButtonDisabled(2)" />Server 3 (Asia)</label>
+                    <br>
+                    <label>
+                        <input type="radio" name="server" value="server4" class="labels" [disabled]="isRadioButtonDisabled(3)" />Server 4 (Local)</label>
+                    <br>
+                </div>
                 <div class="row">
-                    <button class="buttons" (click)="connectToServer(serverUrl.value)">Connect</button>
+                    <button *ngIf="multiplayerService.isConnected === false" class="buttons" (click)="connectToServer()">Connect</button>
+                    <button *ngIf="multiplayerService.isConnected === true" [disabled]="multiplayerService.loginState.result === true" class="buttons" (click)="disconnectFromServer()">Disconnect</button>
                 </div>
             </div>
-            <div class="groups">
-                <h1 class="title">USER</h1>
+            <div *ngIf="multiplayerService.isConnected === true && multiplayerService.loginState.result === false" class="groups" style="max-width: 458px;">
                 <div class="row">
-                    <p class="labels">Name:</p>
-                    <input #userName class="text-field" type="text">
+                    <div class="col-md-6 tabs left-tab" (click)="openTab('login')" [ngClass]="{'active-tab': selectedLoginTab === 'login'}">
+                        <p>Login</p>
+                    </div>
+                    <div class="col-md-6 tabs right-tab" (click)="openTab('signup')" [ngClass]="{'active-tab': selectedLoginTab === 'signup'}">
+                        <p>Sign Up</p>
+                    </div>
                 </div>
-                <div class="row">
-                    <p class="labels">Password:</p>
-                    <input #password class="text-field" type="text">
+                <div *ngIf="selectedLoginTab === 'login'" class="groups-container">
+                    <h1 class="title">LOGIN</h1>
+                    <div>
+                        <p [ngClass]="{'connected-to-server': multiplayerService.loginState.result,
+                                    'not-connected-to-server': !multiplayerService.loginState.result}" class="server-message">{{ multiplayerService.loginState.message }}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p class="labels">Name:</p>
+                        <input #playerName class="text-field" type="text">
+                    </div>
+                    <div class="row">
+                        <p class="labels">Password:</p>
+                        <input #password class="text-field" type="password">
+                    </div>
+                    <div class="row">
+                        <button *ngIf="multiplayerService.loginState.result === false" class="buttons" (click)="login(playerName.value, password.value)">Login</button>
+                        <button *ngIf="multiplayerService.loginState.result === true" class="buttons" (click)="logout()">Logout</button>
+                    </div>
                 </div>
+                <div *ngIf="selectedLoginTab === 'signup'" class="groups-container">
+                    <h1 class="title">NEW PLAYER</h1>
+                    <div>
+                        <p [ngClass]="{'connected-to-server': multiplayerService.loginState.result,
+                                    'not-connected-to-server': !multiplayerService.loginState.result}" class="server-message">{{ multiplayerService.loginState.message }}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p class="labels">Name:</p>
+                        <input #playerName class="text-field" type="text">
+                    </div>
+                    <div class="row">
+                        <p class="labels">Password:</p>
+                        <input #password class="text-field" type="password">
+                    </div>
+                    <div class="row">
+                        <div>
+                            <div class="row">
+                                <p class="labels">Color:</p>
+                                <select name="user-color" class="icons-menu">
+                                    <option value="0">Red</option>
+                                    <option value="1">Blue</option>
+                                    <option value="2">Yellow</option>
+                                    <option value="3">Orange</option>
+                                    <option value="4">Purple</option>
+                                    <option value="5">Brown</option>
+                                    <option value="6">Green</option>
+                                    <option value="7">Dark Green</option>
+                                    <option value="8">Dark Blue</option>
+                                    <option value="9">Gray</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <p class="labels">Icon:</p>
+                                <select name="user-icon" class="icons-menu">
+                                    <option value="0">Icon 1</option>
+                                    <option value="1">Icon 2</option>
+                                    <option value="2">Icon 3</option>
+                                    <option value="3">Icon 4</option>
+                                    <option value="4">Icon 5</option>
+                                    <option value="5">Icon 6</option>
+                                    <option value="6">Icon 7</option>
+                                    <option value="7">Icon 8</option>
+                                    <option value="8">Icon 9</option>
+                                    <option value="9">Icon 10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor('create')">
+                            <img style="margin-left: 0px;" src="{{ getIconImage('create') }}" height="65" width="65">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="buttons" (click)="createPlayer(playerName.value, password.value)">Create Player</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="multiplayerService.loginState.result === true" class="groups groups-container">
+                <h1 class="title">PLAYER DATA</h1>
                 <div>
                     <p [ngClass]="{'connected-to-server': multiplayerService.loginState.result,
-                                'not-connected-to-server': !multiplayerService.loginState.result}" 
-                        class="server-message">{{ multiplayerService.loginState.message }}
+                                'not-connected-to-server': !multiplayerService.loginState.result}" class="server-message">{{ multiplayerService.loginState.message }}
                     </p>
                 </div>
                 <div class="row">
-                    <button class="buttons" (click)="login(userName.value, password.value)">Login</button>
-                    <button class="buttons" (click)="createUser(userName.value, password.value)">Create User</button>
+                    <p class="labels">Name:</p>
+                    <input #updateName name="update-name" class="text-field" type="text" value="{{multiplayerService.currentPlayer.name}}" disabled>
+                </div>
+                <div class="row">
+                    <p class="labels">Password:</p>
+                    <input #updatePassword name="update-password" class="text-field" type="password" value="{{multiplayerService.currentPlayer.password}}">
+                </div>
+                <div class="row">
+                    <div>
+                        <div class="row">
+                            <p class="labels">Color:</p>
+                            <select name="update-user-color" class="icons-menu">
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 0" value="0">Red</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 1" value="1">Blue</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 2" value="2">Yellow</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 3" value="3">Orange</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 4" value="4">Purple</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 5" value="5">Brown</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 6" value="6">Green</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 7" value="7">Dark Green</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 8" value="8">Dark Blue</option>
+                                <option [selected]="multiplayerService.currentPlayer.colorId === 9" value="9">Gray</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <p class="labels">Icon:</p>
+                            <select name="update-user-icon" class="icons-menu">
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 0" value="0">Icon 1</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 1" value="1">Icon 2</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 2" value="2">Icon 3</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 3" value="3">Icon 4</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 4" value="4">Icon 5</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 5" value="5">Icon 6</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 6" value="6">Icon 7</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 7" value="7">Icon 8</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 8" value="8">Icon 9</option>
+                                <option [selected]="multiplayerService.currentPlayer.iconId === 9" value="9">Icon 10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="icon-holder" [style.backgroundColor]="getIconColor('update')">
+                        <img style="margin-left: 0px;" src="{{ getIconImage('update') }}" height="65" width="65">
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="buttons" (click)="updatePlayer()">Update</button>
+                    <button class="buttons" (click)="logout()">Logout</button>
                 </div>
             </div>
         </div>

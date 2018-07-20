@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BoardComponent } from 'app/components/tic-tac-toe/board/board.component';
-import { MultiplayerService } from 'app/shared/services/multiplayer.service';
-import { ModalService } from 'app/shared/services/modal.service';
+import { BoardComponent } from './board/board.component';
+import { MultiplayerService } from '../../shared/services/multiplayer.service';
+import { ModalService } from '../../shared/services/modal.service';
 
 @Component({
     selector: 'app-tic-tac-toe',
@@ -11,7 +11,7 @@ import { ModalService } from 'app/shared/services/modal.service';
 export class TicTacToeComponent implements OnInit {
     @ViewChild('board') board: BoardComponent;
 
-    constructor(private multiplayerService: MultiplayerService, private modalService: ModalService) { }
+    constructor(public multiplayerService: MultiplayerService, private modalService: ModalService) { }
 
     ngOnInit() { }
 
@@ -27,6 +27,12 @@ export class TicTacToeComponent implements OnInit {
 
     }
 
+    public leaveGame(): void {
+
+        this.multiplayerService.leaveTicTacToe();
+
+    }
+
     public getPlayersMessage(): string {
 
         let message: string = "";
@@ -36,14 +42,14 @@ export class TicTacToeComponent implements OnInit {
                 message = "Waiting for players to join!"; 
                 break;
             case 1: 
-                message = this.multiplayerService.serverTicTacToeStatus.playersConnected[0].userName;
+                message = this.multiplayerService.serverTicTacToeStatus.playersConnected[0].name;
                 message += " joined! Waiting for 1 more player";
                 break;
             case 2: 
                 message = "2 players joined! Current game: ";
-                message += this.multiplayerService.serverTicTacToeStatus.playersConnected[0].userName;
+                message += this.multiplayerService.serverTicTacToeStatus.playersConnected[0].name;
                 message += " vs ";
-                message += this.multiplayerService.serverTicTacToeStatus.playersConnected[1].userName;
+                message += this.multiplayerService.serverTicTacToeStatus.playersConnected[1].name;
                 break;
             default: 
                 message = "";

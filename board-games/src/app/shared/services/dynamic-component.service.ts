@@ -1,6 +1,6 @@
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, Inject } from '@angular/core';
-import { DynamicComponents } from 'app/shared/DynamicComponents';
-import { CfSquareComponent } from 'app/components/connect-four/cf-board/cf-square/cf-square.component';
+import { DynamicComponents } from '../DynamicComponents';
+import { CfSquareComponent } from '../../components/connect-four/cf-board/cf-square/cf-square.component';
 
 @Injectable()
 export class DynamicComponentService {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Games, AllGames } from 'app/logic/games';
-import { MultiplayerService } from 'app/shared/services/multiplayer.service';
-import { ModalService } from 'app/shared/services/modal.service';
+import { Games, AllGames } from '../../logic/games';
+import { MultiplayerService } from '../../shared/services/multiplayer.service';
+import { ModalService } from '../../shared/services/modal.service';
 
 @Component({
     selector: 'app-side-bar',

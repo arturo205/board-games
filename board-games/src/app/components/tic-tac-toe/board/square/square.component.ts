@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MultiplayerService } from 'app/shared/services/multiplayer.service';
-import { TicTacToeMove } from 'app/logic/tic-tac-toe/server/tic-tac-toe-move';
+import { MultiplayerService } from '../../../../shared/services/multiplayer.service';
+import { TicTacToeMove } from '../../../../logic/tic-tac-toe/server/tic-tac-toe-move';
 
 @Component({
     selector: 'app-square',
@@ -11,7 +11,7 @@ export class SquareComponent implements OnInit {
 
     public key: number;
 
-    constructor(private multiplayerService: MultiplayerService) {
+    constructor(public multiplayerService: MultiplayerService) {
         this.key = 0;
     }
 
@@ -19,12 +19,12 @@ export class SquareComponent implements OnInit {
 
     public onClick(): void {
 
-        if (this.multiplayerService.serverTicTacToeStatus.currentTurn.userName === this.multiplayerService.currentUser.userName) {
-            this.multiplayerService.performTicTacToeMove(new TicTacToeMove(this.multiplayerService.currentUser, this.key));
+        if (this.multiplayerService.serverTicTacToeStatus.currentTurn.name === this.multiplayerService.currentPlayer.name) {
+            this.multiplayerService.performTicTacToeMove(new TicTacToeMove(this.multiplayerService.currentPlayer, this.key));
             this.multiplayerService.localMessage = "";
         }
         else {
-            this.multiplayerService.localMessage = this.multiplayerService.currentUser.userName + " please wait for your turn.";
+            this.multiplayerService.localMessage = this.multiplayerService.currentPlayer.name + " please wait for your turn.";
         }
 
     }

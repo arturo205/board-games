@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SideBarComponent } from 'app/components/side-bar/side-bar.component';
-import { Games } from 'app/logic/games';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { Games } from './logic/games';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
 
   public onClick(): void {
     this.selectedGame = this.sideBar.selectedGame;
-    console.log(this.selectedGame);
   }
 
 }

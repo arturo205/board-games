@@ -1,4 +1,4 @@
-import { Games } from "app/logic/games";
+import { Games } from "../logic/games";
 
 export class Movement {
 

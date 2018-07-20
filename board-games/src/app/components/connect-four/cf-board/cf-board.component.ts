@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, Inject } from '@angular/core';
-import { DynamicComponentService } from 'app/shared/services/dynamic-component.service';
-import { CfSquareComponent } from 'app/components/connect-four/cf-board/cf-square/cf-square.component';
-import { DynamicComponents } from 'app/shared/DynamicComponents';
+import { DynamicComponentService } from '../../../shared/services/dynamic-component.service';
+import { CfSquareComponent } from './cf-square/cf-square.component';
+import { DynamicComponents } from '../../../shared/DynamicComponents';
 
 @Component({
   selector: 'app-cf-board',

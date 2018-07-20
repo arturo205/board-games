@@ -1,6 +1,6 @@
 <div class="app-main-background">
     <div id="tic-tac-toe" class="row">
-        <div>
+        <div class="groups groups-container">
             <div class="row">
                 <button class="buttons" (click)="joinGame()">Join Game</button>
                 <p class="tic-tac-toe-message">Number of players: {{ multiplayerService.serverTicTacToeStatus.playersConnected.length }}</p>
@@ -9,7 +9,10 @@
                 <p>{{ getPlayersMessage() }}</p>
             </div>
             <app-board #board></app-board>
-            <div id="restart-button" (click)="restartGame()">Restart Game</div>
+            <div class="row">
+                <button class="buttons" (click)="restartGame()">Restart</button>
+                <button class="buttons" (click)="leaveGame()">Leave</button>
+            </div>
         </div>
         <div>
             <app-chat></app-chat>

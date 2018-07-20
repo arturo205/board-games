@@ -1,21 +1,31 @@
-<div class="groups connected-users-box">
-    <h1 class="title">CONNECTED USERS</h1>
-    <ul>
-        <li *ngFor="let connectedUser of multiplayerService.allConnectedUsers" class="row">
-            <img src="assets/images/user.png" height="28" width="28">
-            <p class="user-data">{{ connectedUser.userName }}</p>
-        </li>
-    </ul>
-</div>
-<div class="groups">
-    <h1 class="title">CHAT</h1>
-    <div class="row">
-        <input #newMessage id="newMessageInput" class="text-field" type="text" maxlength="40">
-        <button id="sendButton" class="buttons" (click)="sendNewChatMessage(newMessage.value)">Send</button>
+<div *ngIf="multiplayerService.loginState.result === true">
+    <div class="groups groups-container connected-players-box">
+        <h1 class="title">CONNECTED PLAYERS</h1>
+        <ul>
+            <li *ngFor="let connectedPlayer of multiplayerService.allConnectedPlayers" class="row">
+                <div class="icon-holder" [style.backgroundColor]="getIconColor(connectedPlayer.colorId)">
+                    <img style="margin-left: 0px;" src="{{ getIconImage(connectedPlayer.iconId) }}" height="36" width="36">
+                </div>
+                <p class="player-data">{{ connectedPlayer.name }}</p>
+            </li>
+        </ul>
     </div>
-    <div class="chat-box">
-      <p *ngFor="let chatMessage of multiplayerService.allChatMessages.slice().reverse(); let i = index" id="chat{{i}}" class="chat-row">
-        [{{ chatMessage.user.userName }}]: {{ chatMessage.message }}
-      </p>
+    <div class="groups groups-container">
+        <h1 class="title">CHAT</h1>
+        <div class="row">
+            <input #newMessage id="newMessageInput" class="text-field" type="text" maxlength="40">
+            <button id="sendButton" class="buttons" (click)="sendNewChatMessage(newMessage.value)">Send</button>
+        </div>
+        <div class="chat-box">
+            <div *ngFor="let chatMessage of multiplayerService.allChatMessages.slice().reverse(); let i = index" id="chat{{i}}">
+                <div class="row">
+                    <div class="icon-holder-chat-box chat-row" [style.backgroundColor]="getIconColor(chatMessage.player.colorId)">
+                        <img style="margin-left: 0px;" src="{{ getIconImage(chatMessage.player.iconId) }}" height="28" width="28">
+                    </div>
+                    <p class="chat-name">{{ chatMessage.player.name }}:&nbsp;</p>
+                    <p class="chat-message">{{ chatMessage.message }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

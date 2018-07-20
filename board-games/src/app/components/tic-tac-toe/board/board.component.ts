@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { SquareComponent } from 'app/components/tic-tac-toe/board/square/square.component';
-import { MultiplayerService } from 'app/shared/services/multiplayer.service';
+import { SquareComponent } from './square/square.component';
+import { MultiplayerService } from '../../../shared/services/multiplayer.service';
+import { Games } from 'app/logic/games';
 
 @Component({
     selector: 'app-board',
@@ -12,7 +13,7 @@ export class BoardComponent implements OnInit {
 
     public welcomeMessage: string = "Welcome to Tic-Tac-Toe!";
 
-    constructor(private multiplayerService: MultiplayerService) { }
+    constructor(public multiplayerService: MultiplayerService) { }
 
     ngOnInit() { }
 
@@ -34,7 +35,7 @@ export class BoardComponent implements OnInit {
                 foundColor = "green";
             }
             else {
-                if (this.multiplayerService.serverTicTacToeStatus.currentTurn.userName === this.multiplayerService.currentUser.userName) {
+                if (this.multiplayerService.serverTicTacToeStatus.currentTurn.name === this.multiplayerService.currentPlayer.name) {
                     foundColor = "blue";
                 }
                 else {
@@ -52,6 +53,12 @@ export class BoardComponent implements OnInit {
     public resetBoard(): void {
 
         this.multiplayerService.resetTicTacToe();
+
+    }
+
+    public playerJoined(): boolean {
+
+        return this.multiplayerService.joinedGame === Games.TicTacToe ? true : false;
 
     }
 

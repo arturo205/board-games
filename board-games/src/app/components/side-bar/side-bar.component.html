@@ -11,10 +11,6 @@
                  'game-option': selectedGame !== 'ConnectFour'}" (click)="onClick('ConnectFour')">
         Connect Four
     </p>
-    <p [ngClass]="{'selected-game-option': selectedGame === 'Other', 
-                 'game-option': selectedGame !== 'Other'}" (click)="onClick('Other')">
-        Other
-    </p>
 </div>
 
 <app-modal id="not-logged-in">
