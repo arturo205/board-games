@@ -1,17 +1,96 @@
-<div class="app-main-background">
+<div class="app-main-background" style="height: 100%;">
     <div id="tic-tac-toe" class="row">
-        <div class="groups groups-container">
-            <div class="row">
-                <button class="buttons" (click)="joinGame()">Join Game</button>
-                <p class="tic-tac-toe-message">Number of players: {{ multiplayerService.serverTicTacToeStatus.playersConnected.length }}</p>
+        <div>
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container" style="text-align: center;">
+                <h1 class="title">NEW GAME</h1>
+                <div class="vertical-padding-10" style="padding-top: 0px;">
+                    <img src="assets/images/new.png" width="60" height="60"/>
+                </div>
+                <div class="row">
+                    <button class="buttons" (click)="createNewGame()">Create</button>
+                </div>
             </div>
-            <div class="tic-tac-toe-message">
-                <p>{{ getPlayersMessage() }}</p>
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container">
+                <h1 class="title">CREATED GAMES</h1>
+                <div *ngFor="let summaryElement of multiplayerService.ticTacToeSummary">
+                    <div class="subgroup">
+                        <div class="row">
+                            <div *ngIf="summaryElement.player1 !== null" [ngClass]="{'col-md-12': summaryElement.player2 === null, 'col-md-5': summaryElement.player2 !== null}" class="row">
+                                <div class="icon-holder" [style.backgroundColor]="getIconColor(summaryElement.player1.colorId)">
+                                    <img style="margin-left: 0px;" src="{{ getIconImage(summaryElement.player1.iconId) }}" height="36" width="36">
+                                </div>
+                                <p class="current-game-message">{{ summaryElement.player1.name }}</p>
+                            </div>
+                            <div *ngIf="summaryElement.player2 !== null" class="row col-md-2">
+                                <p class="remark-message"> VS </p>
+                            </div>
+                            <div *ngIf="summaryElement.player2 !== null" class="row col-md-5">
+                                <div class="icon-holder" style="text-align: right;" [style.backgroundColor]="getIconColor(summaryElement.player2.colorId)">
+                                    <img style="margin-left: 0px;" src="{{ getIconImage(summaryElement.player2.iconId) }}" height="36" width="36">
+                                </div>
+                                <p class="current-game-message">{{ summaryElement.player2.name }}</p>
+                            </div>
+                        </div>
+                        <div class="tic-tac-toe-message">
+                            <p>{{ getSummaryMessageForGameInstance(summaryElement) }}</p>
+                        </div>
+                        <div class="row">
+                            <button *ngIf="getSummaryGameStatus(summaryElement) === 0" class="buttons" (click)="joinGame(summaryElement.id)">Join</button>
+                            <button *ngIf="getSummaryGameStatus(summaryElement) === 1" class="buttons" (click)="leaveGame()" disabled>See the match</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="multiplayerService.ticTacToeSummary.length === 0" class="subgroup">
+                    <div style="text-align: center;">
+                        <img src="assets/images/empty.png" width="60" height="60"/>
+                        <p class="tic-tac-toe-message">There are no games being played now.</p>
+                        <p class="tic-tac-toe-message">Please create a new one.</p>
+                    </div>
+                </div>
             </div>
-            <app-board #board></app-board>
-            <div class="row">
-                <button class="buttons" (click)="restartGame()">Restart</button>
-                <button class="buttons" (click)="leaveGame()">Leave</button>
+            <div *ngIf="getGameStatus() === 1" class="groups groups-container">
+                <h1 class="title">NEW GAME</h1>
+                <div class="vertical-padding-10" style="width: 100%;">
+                    <div class="app-loading">
+                        <img src="assets/images/blocks.gif" width="80" height="80"/>
+                        <svg class="spinner" viewBox="25 25 50 50">
+                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="row vertical-padding-10">
+                    <p class="tic-tac-toe-message">Waiting for players to join...</p>
+                </div>
+                <div class="row vertical-padding-10">
+                    <button class="buttons" (click)="leaveGame()">Leave</button>
+                </div>
+            </div>
+            <div *ngIf="getGameStatus() === 2" class="groups groups-container">
+                <h1 class="title">CURRENT GAME</h1>
+                <div class="row">
+                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 1" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverTicTacToeStatus.playersConnected[0].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverTicTacToeStatus.playersConnected[0].iconId) }}" height="36" width="36">
+                        </div>
+                        <p class="current-game-message">{{ multiplayerService.serverTicTacToeStatus.playersConnected[0].name }}</p>
+                    </div>
+                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 2" class="row col-md-2">
+                        <p class="remark-message"> VS </p>
+                    </div>
+                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 2" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverTicTacToeStatus.playersConnected[1].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverTicTacToeStatus.playersConnected[1].iconId) }}" height="36" width="36">
+                        </div>
+                        <p class="current-game-message">{{ multiplayerService.serverTicTacToeStatus.playersConnected[1].name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <button *ngIf="getGameStatus() === 2" class="buttons" (click)="restartGame()">Restart</button>
+                    <button *ngIf="getGameStatus() === 1 || getGameStatus() === 2" class="buttons" (click)="leaveGame()">Leave</button>
+                </div>
+            </div>
+            <div *ngIf="getGameStatus() === 2" class="groups groups-container">
+                <app-board #board></app-board>
             </div>
         </div>
         <div>

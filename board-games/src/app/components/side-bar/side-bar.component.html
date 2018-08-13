@@ -1,20 +1,44 @@
 <div id="sidebar">
-    <p [ngClass]="{'selected-game-option': selectedGame === 'Login', 
-                'game-option': selectedGame !== 'Login'}" (click)="onClick('Login')">
-        Login
-    </p>
-    <p [ngClass]="{'selected-game-option': selectedGame === 'TicTacToe', 
-                 'game-option': selectedGame !== 'TicTacToe'}" (click)="onClick('TicTacToe')">
-        Tic Tac Toe
-    </p>
-    <p [ngClass]="{'selected-game-option': selectedGame === 'ConnectFour', 
-                 'game-option': selectedGame !== 'ConnectFour'}" (click)="onClick('ConnectFour')">
-        Connect Four
-    </p>
+        <div [ngClass]="{'selected-game-option': selectedGame === 'Login', 
+        'game-option': selectedGame !== 'Login'}" (click)="onClick('Login')"
+        style="text-align: center;">
+        <div>
+            <div class="game-icon">
+                <img src="assets/images/players.png" width="48px" height="48px"/>
+            </div>
+            <p class="game-name">LOGIN</p>
+        </div>
+    </div>
+    <div [ngClass]="{'selected-game-option': selectedGame === 'TicTacToe', 
+        'game-option': selectedGame !== 'TicTacToe'}" (click)="onClick('TicTacToe')"
+        style="text-align: center;">
+        <div>
+            <div class="game-icon">
+                <img src="assets/images/tic_tac_toe.png" width="48px" height="48px"/>
+            </div>
+            <p class="game-name">TIC TAC TOE</p>
+        </div>
+    </div>
+    <div [ngClass]="{'selected-game-option': selectedGame === 'ConnectFour', 
+        'game-option': selectedGame !== 'ConnectFour'}" (click)="onClick('ConnectFour')"
+        style="text-align: center;">
+        <div>
+            <div class="game-icon">
+                <img src="assets/images/connect_four.png" width="48px" height="48px"/>
+            </div>
+            <p class="game-name">CONNECT FOUR</p>
+        </div>
+    </div>
 </div>
 
 <app-modal id="not-logged-in">
-    <p class="title">System Message</p>
-    <p class="app-modal-main-text">Please log in or create a new player to open any game</p>
+    <p class="title">WHO'S THERE?!</p>
+    <p class="app-modal-main-text">Huh?! Who are you? What's your name? Log in or create a new player to play any game!</p>
     <button class="buttons" (click)="closeModal('not-logged-in')">Close</button>
+</app-modal>
+
+<app-modal id="no-access">
+    <p class="title">UNDER CONSTRUCTION!</p>
+    <p class="app-modal-main-text">Tempting, huh? Be sure to check it soon. It's being drawn now! Wait a bit!</p>
+    <button class="buttons" (click)="closeModal('no-access')">Close</button>
 </app-modal>

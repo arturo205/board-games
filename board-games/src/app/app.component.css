@@ -1,6 +1,8 @@
 .wrapper {
     display: flex;
     align-items: stretch;
+    font-family: chalky-chicken;
+    font-size: 15px;
 }
 
 .app-side-bar-main-layout {

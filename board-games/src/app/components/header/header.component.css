@@ -1,8 +1,8 @@
 #header {
-    color: white;
-    font-size: 30px;
-    height: 45px;
-    font-family: Tetri;
-    background: linear-gradient(90deg, rgb(4, 32, 77), rgb(255, 255, 255));
+    color: rgb(255, 255, 255);
+    font-size: 55px;
+    height: 70px;
+    font-family: from-cartoon-blocks;
+    background: linear-gradient(rgba(75, 36, 0, 0.5), rgba(75, 36, 0, 0.5)), url("/assets/images/purty_wood.png");
     border-bottom: 1px rgb(33, 32, 88) solid;
 }

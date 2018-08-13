@@ -29,10 +29,10 @@
             <div *ngIf="multiplayerService.isConnected === true && multiplayerService.loginState.result === false" class="groups" style="max-width: 458px;">
                 <div class="row">
                     <div class="col-md-6 tabs left-tab" (click)="openTab('login')" [ngClass]="{'active-tab': selectedLoginTab === 'login'}">
-                        <p>Login</p>
+                        <p>LOGIN</p>
                     </div>
                     <div class="col-md-6 tabs right-tab" (click)="openTab('signup')" [ngClass]="{'active-tab': selectedLoginTab === 'signup'}">
-                        <p>Sign Up</p>
+                        <p>SIGN UP</p>
                     </div>
                 </div>
                 <div *ngIf="selectedLoginTab === 'login'" class="groups-container">

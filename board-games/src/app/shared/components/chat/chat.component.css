@@ -1,7 +1,7 @@
 .chat-box {
-    background-color: rgba(241, 249, 255, 0.63);
-    border: 1px rgba(142, 206, 255, 0.705) solid;
-    box-shadow: 7px 7px 7px 7px 14px #dbe6ff;
+    background-image: url("/assets/images/lined_paper.png");
+    border: 1px rgb(131, 70, 0) solid;
+    box-shadow: 7px 7px 7px 7px 14px rgb(131, 70, 0);
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 230px;

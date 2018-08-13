@@ -24,12 +24,29 @@ export class SideBarComponent implements OnInit {
 
     public onClick(game: string): void {
 
+        if (this.playerIsLoggedIn(game)) {
+            if (game === 'ConnectFour') {
+                this.modalService.open('no-access');
+            }
+            else {
+                this.selectedGame = AllGames.getGame(game);
+            }
+        }
+
+    }
+
+    private playerIsLoggedIn(game: string): boolean {
+
+        let result: boolean = false;
+
         if (this.multiplayerService.loginState.result) {
-            this.selectedGame = AllGames.getGame(game);
+            result = true;
         }
         else {
             this.modalService.open('not-logged-in');
         }
+
+        return result;
 
     }
 

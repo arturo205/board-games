@@ -29,9 +29,11 @@ export class ChatComponent implements OnInit {
 
     public sendNewChatMessage(newChatMessage: string): void {
 
-        let message: ChatMessage = new ChatMessage(this.multiplayerService.currentPlayer, newChatMessage);
-        this.multiplayerService.addNewChatMessage(message);
-        (<HTMLInputElement>document.getElementById("newMessageInput")).value = "";
+        if (newChatMessage.length > 0) {
+            let message: ChatMessage = new ChatMessage(this.multiplayerService.currentPlayer, newChatMessage);
+            this.multiplayerService.addNewChatMessage(message);
+            (<HTMLInputElement>document.getElementById("newMessageInput")).value = "";
+        }
 
     }
 

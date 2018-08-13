@@ -20,13 +20,44 @@
     src: url('assets/fonts/tetri/tetri.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'comic-jens';
+    src: url('assets/fonts/comic-jens/ComicJensFreePro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'from-cartoon-blocks';
+    src: url('assets/fonts/from-cartoon-blocks/From_Cartoon_Blocks.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'right-chalk';
+    src: url('assets/fonts/right_chalk/Right_Chalk.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'chalky-chicken';
+    src: url('assets/fonts/chalky_chicken/Chalky_Chicken.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'chalk-it-up';
+    src: url('assets/fonts/djb_chalk_it_up/DJB_Chalk_It_Up.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'neat-chalk';
+    src: url('assets/fonts/neat_chalk/Neat_Chalk.ttf') format('truetype');
+}
+
 .app-main-background {
-    background: url("/assets/images/escheresque_2x.png") repeat 0 0;
+    /*background: url("/assets/images/escheresque_2x.png") repeat 0 0;
     background-size: 64px 40px;
     width: 100%;
     height: 100%;
     -webkit-animation: slide 25s linear infinite;
-    animation: slide 25s linear infinite;
+    animation: slide 25s linear infinite;*/
+    background-image: url("/assets/images/ricepaper.png");
 }
 
 @-webkit-keyframes slide {
@@ -39,9 +70,60 @@
     100% { background-position: 0px 600px; }
 }
 
+.app-loading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.app-loading .spinner {
+    height: 120px;
+    width: 120px;
+    animation: rotate 2s linear infinite;
+    transform-origin: center center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.app-loading .spinner .path {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: dash 1.5s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke: rgb(60, 49, 151);
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
 .title {
-    color: rgb(23, 54, 122);
-    font-family: chargen;
+    color: rgb(119, 58, 0);
+    font-family: right-chalk;
     font-size: 22px;
     text-align: center;
 }
@@ -49,9 +131,10 @@
 .groups {
     margin: 8px 8px 18px 8px;
     padding: 0px;
-    border: 1px rgb(131, 174, 253) solid;
-    box-shadow: 7px 7px 14px #bddcff;
-    background-color: #dbe6ff;
+    border: 1px rgb(131, 70, 0) solid;
+    box-shadow: 7px 7px 14px rgb(131, 70, 0);
+    /*background-color: rgb(219, 230, 255);*/
+    background-image: url("/assets/images/extra_clean_paper.png");
     min-width: 458px;
     border-radius: 14px;
 }
@@ -60,8 +143,21 @@
     padding: 10px;
 }
 
+.subgroup {
+    margin: 10px 10px 10px 10px;
+    border: 1px rgb(131, 70, 0) solid;
+    padding: 8px;
+    background-image: url("/assets/images/paper_fibers.png");
+    min-width: 458px;
+    border-radius: 10px;
+}
+
+.subgroup:hover {
+    background-color: rgb(255, 254, 219);
+}
+
 .player-data {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: chalky-chicken;
     font-size: 18px;
     font-weight: 400;
     color: rgb(0, 64, 107);
@@ -76,16 +172,21 @@
 .buttons {
     width: 150px;
     height: 29px;
-    color: rgb(203, 241, 253);
-    background-color: rgb(87, 117, 199);
+    color: rgb(139, 67, 0);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("/assets/images/retina_wood.png");
     text-align: center;
     margin: 0 auto;
     border-radius: 16px;
 }
 
 .buttons:disabled {
-    background-color: rgb(179, 179, 179);
-    color: rgb(247, 247, 247);
+    background: linear-gradient(rgba(82, 82, 82, 0.5), rgba(82, 82, 82, 0.5)), url("/assets/images/retina_wood.png");
+    color: rgb(97, 97, 97);
+}
+
+.buttons:hover {
+    background: linear-gradient(rgba(117, 63, 1, 0.5), rgba(117, 63, 1, 0.5)), url("/assets/images/retina_wood.png");
+    color: rgb(95, 46, 0);
 }
 
 .row {
@@ -93,11 +194,11 @@
 }
 
 .app-modal-title {
-    color: rgb(23, 54, 122);
+    color: rgb(139, 67, 0);
     font-size: 22px;
     font-weight: 600;
     text-align: center;
-    font-family: chargen;
+    font-family: right-chalk;
 }
 
 .app-modal-main-text {
@@ -107,21 +208,21 @@
 }
 
 .tabs {
-    background-color: rgb(137, 159, 211);
+    background: linear-gradient(rgba(148, 148, 148, 0.5), rgba(148, 148, 148, 0.5)), url("/assets/images/textured_paper.png");
     height: 36px;
-    border: 1px rgb(131, 174, 253) solid;
+    border: 1px rgb(139, 67, 0) solid;
     border-bottom: none;
-    font-family: chargen;
+    font-family: right-chalk;
     font-size: 14px;
     text-align: center;
     vertical-align: center;
     margin: 0;
-    color: rgb(16, 40, 92);
+    color: rgb(139, 67, 0);
     cursor: default;
 }
 
 .tabs:hover {
-    background-color: rgb(120, 139, 185);
+    background: linear-gradient(rgba(78, 78, 78, 0.5), rgba(78, 78, 78, 0.5)), url("/assets/images/textured_paper.png");
 }
 
 .tabs p {
@@ -130,11 +231,11 @@
 }
 
 .active-tab {
-    background-color: rgb(201, 211, 236);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("/assets/images/textured_paper.png");
 }
 
 .active-tab:hover {
-    background-color: rgb(201, 211, 236);
+    background: linear-gradient(rgba(192, 192, 192, 0.5), rgba(192, 192, 192, 0.5)), url("/assets/images/textured_paper.png");
 }
 
 .left-tab {
@@ -145,4 +246,9 @@
 .right-tab {
     border-top-left-radius: 2px;
     border-top-right-radius: 14px;
+}
+
+.vertical-padding-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

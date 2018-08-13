@@ -1,47 +1,53 @@
 #sidebar {
-    background: linear-gradient(rgb(4, 32, 77), rgb(255, 255, 255));
+    background-image: url("/assets/images/purty_wood.png");
     font-size: 16px;
-    font-family: chargen;
+    font-family: right-chalk;
     min-width: 180px;
     max-width: 180px;
     min-height: calc(100vh - 45px);
     max-height: calc(100vh - 45px);
     text-align: center;
-    border-right: 1px rgb(33, 32, 88) solid;
+    border-right: 1px rgb(131, 70, 0) solid;
 }
 
 .game-option {
-    background-color: rgb(185, 198, 228);
-    color: rgb(2, 20, 68);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("/assets/images/paper_fibers.png");
+    color: rgb(131, 70, 0);
     cursor: pointer;
-    height: 40px;
-    line-height: 40px;
+    height: 110px;
     vertical-align: middle;
-    border: 1px rgb(34, 33, 116) solid;
-    box-shadow: 4px 4px 3px rgb(15, 28, 90);
+    border: 1px rgb(131, 70, 0) solid;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .game-option:hover {
-    background-color: rgb(147, 157, 180);
-    color: rgb(1, 10, 37);
-    height: 55px;
-    line-height: 55px;
+    background-image: linear-gradient(rgba(196, 166, 0, 0.5), rgba(196, 166, 0, 0.5)), url("/assets/images/paper_fibers.png");
+    color: rgb(80, 43, 0);
 }
 
 .selected-game-option {
-    background-color: rgb(143, 14, 14);
-    color: rgb(255, 240, 155);
+    background-image: linear-gradient(rgba(182, 0, 0, 0.5), rgba(182, 0, 0, 0.5)), url("/assets/images/paper_fibers.png");
+    color: rgb(255, 236, 126);
     cursor: pointer;
-    height: 40px;
-    line-height: 40px;
+    height: 110px;
     vertical-align: middle;
-    border: 1px rgb(10, 8, 94) solid;
-    box-shadow: 4px 4px 3px rgb(15, 28, 90);
+    border: 1px rgb(131, 70, 0) solid;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .selected-game-option:hover {
-    background-color: rgb(119, 10, 10);
-    color: rgb(253, 235, 132);
-    height: 55px;
-    line-height: 55px;
+    background-image: linear-gradient(rgba(131, 0, 0, 0.6), rgba(131, 0, 0, 0.6)), url("/assets/images/paper_fibers.png");
+    color: rgb(255, 229, 83);
+}
+
+.game-icon {
+    height: 70px;
+    line-height: 70px;
+}
+
+.game-name {
+    height: 30px;
+    line-height: 30px;
 }

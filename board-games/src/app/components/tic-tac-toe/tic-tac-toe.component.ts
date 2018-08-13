@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BoardComponent } from './board/board.component';
 import { MultiplayerService } from '../../shared/services/multiplayer.service';
 import { ModalService } from '../../shared/services/modal.service';
+import { AllGames } from 'app/logic/games';
+import { TicTacToeSummaryElement } from '../../logic/tic-tac-toe/server/tic-tac-toe-summary-element';
 
 @Component({
     selector: 'app-tic-tac-toe',
@@ -21,15 +23,55 @@ export class TicTacToeComponent implements OnInit {
 
     }
 
-    public joinGame(): void {
+    public joinGame(gameId: number): void {
 
-        this.multiplayerService.joinTicTacToeGame();
+        this.multiplayerService.joinTicTacToeGame(gameId);
 
     }
 
     public leaveGame(): void {
 
         this.multiplayerService.leaveTicTacToe();
+
+    }
+
+    /**
+     * Returns the status number for the tic-tac-toe game to handle buttons and logic
+     * 
+     * 0 - New game (not yet created or joined any instance)
+     * 1 - Created and joined an instance (waiting for other player)
+     * 2 - Playing the game with other player
+     */
+    public getGameStatus(): number {
+
+        let status: number = -1;
+
+        if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 0) {
+            status = 0;
+        }
+        else if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 1) {
+            status = 1;
+        }
+        else if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 2) {
+            status = 2;
+        }
+
+        return status;
+
+    }
+
+    public getSummaryGameStatus(summary: TicTacToeSummaryElement): number {
+
+        let status: number = -1;
+
+        if (summary.player1 !== null && summary.player2 === null) {
+            status = 0;
+        }
+        else if (summary.player1 !== null && summary.player2 !== null) {
+            status = 1;
+        }
+
+        return status;
 
     }
 
@@ -42,14 +84,10 @@ export class TicTacToeComponent implements OnInit {
                 message = "Waiting for players to join!"; 
                 break;
             case 1: 
-                message = this.multiplayerService.serverTicTacToeStatus.playersConnected[0].name;
-                message += " joined! Waiting for 1 more player";
+                message = " Waiting for an opponent!";
                 break;
             case 2: 
-                message = "2 players joined! Current game: ";
-                message += this.multiplayerService.serverTicTacToeStatus.playersConnected[0].name;
-                message += " vs ";
-                message += this.multiplayerService.serverTicTacToeStatus.playersConnected[1].name;
+                message = "Game in progress!";
                 break;
             default: 
                 message = "";
@@ -57,6 +95,39 @@ export class TicTacToeComponent implements OnInit {
         }
 
         return message;
+
+    }
+
+    public getSummaryMessageForGameInstance(summary: TicTacToeSummaryElement) {
+
+        let message: string = "";
+
+        if (summary.player1 !== null && summary.player2 === null) {
+            message = "Waiting for an opponent!";
+        }
+        else if (summary.player1 !== null && summary.player2 !== null) {
+            message = "Game in progress!";
+        }
+
+        return message;
+
+    }
+
+    public createNewGame(): void {
+
+        this.multiplayerService.newTicTacToeGame();
+
+    }
+
+    public getIconColor(id: number): string {
+
+        return AllGames.getIconColor(id);
+
+    }
+
+    public getIconImage(id: number): string {
+
+        return AllGames.getIconImage(id);
 
     }
 
