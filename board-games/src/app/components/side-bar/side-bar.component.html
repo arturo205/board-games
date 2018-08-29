@@ -1,6 +1,6 @@
 <div id="sidebar">
-        <div [ngClass]="{'selected-game-option': selectedGame === 'Login', 
-        'game-option': selectedGame !== 'Login'}" (click)="onClick('Login')"
+        <div [ngClass]="{'selected-game-option': multiplayerService.selectedGame === 'Login', 
+        'game-option': multiplayerService.selectedGame !== 'Login'}" (click)="onClick('Login')"
         style="text-align: center;">
         <div>
             <div class="game-icon">
@@ -9,8 +9,8 @@
             <p class="game-name">LOGIN</p>
         </div>
     </div>
-    <div [ngClass]="{'selected-game-option': selectedGame === 'TicTacToe', 
-        'game-option': selectedGame !== 'TicTacToe'}" (click)="onClick('TicTacToe')"
+    <div [ngClass]="{'selected-game-option': multiplayerService.selectedGame === 'TicTacToe', 
+        'game-option': multiplayerService.selectedGame !== 'TicTacToe'}" (click)="onClick('TicTacToe')"
         style="text-align: center;">
         <div>
             <div class="game-icon">
@@ -19,8 +19,8 @@
             <p class="game-name">TIC TAC TOE</p>
         </div>
     </div>
-    <div [ngClass]="{'selected-game-option': selectedGame === 'ConnectFour', 
-        'game-option': selectedGame !== 'ConnectFour'}" (click)="onClick('ConnectFour')"
+    <div [ngClass]="{'selected-game-option': multiplayerService.selectedGame === 'ConnectFour', 
+        'game-option': multiplayerService.selectedGame !== 'ConnectFour'}" (click)="onClick('ConnectFour')"
         style="text-align: center;">
         <div>
             <div class="game-icon">
@@ -41,4 +41,11 @@
     <p class="title">UNDER CONSTRUCTION!</p>
     <p class="app-modal-main-text">Tempting, huh? Be sure to check it soon. It's being drawn now! Wait a bit!</p>
     <button class="buttons" (click)="closeModal('no-access')">Close</button>
+</app-modal>
+
+<app-modal id="close-game">
+    <p class="title">LEAVING?</p>
+    <p class="app-modal-main-text">In order to open another window you have to leave the match if you are in one.</p>
+    <button class="buttons" (click)="leaveCurrentGame()">Leave</button>
+    <button class="buttons" (click)="closeModal('close-game')">Cancel</button>
 </app-modal>

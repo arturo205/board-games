@@ -4,6 +4,7 @@ import { MultiplayerService } from '../../shared/services/multiplayer.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { AllGames } from 'app/logic/games';
 import { TicTacToeSummaryElement } from '../../logic/tic-tac-toe/server/tic-tac-toe-summary-element';
+import { Score } from 'app/shared/score';
 
 @Component({
     selector: 'app-tic-tac-toe',
@@ -15,7 +16,11 @@ export class TicTacToeComponent implements OnInit {
 
     constructor(public multiplayerService: MultiplayerService, private modalService: ModalService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+        this.multiplayerService.loadCurrentGameScore();
+
+    }
 
     public restartGame(): void {
 
@@ -128,6 +133,31 @@ export class TicTacToeComponent implements OnInit {
     public getIconImage(id: number): string {
 
         return AllGames.getIconImage(id);
+
+    }
+
+    public getRanking(): void {
+
+        this.multiplayerService.getTicTacToeHighestScores(10);
+        this.modalService.open("tic-tac-toe-ranking");
+
+    }
+
+    public closeModal(id: string): void {
+
+        this.modalService.close(id);
+
+    }
+
+    public openInstructions(): void {
+
+        this.modalService.open("tic-tac-toe-instructions");
+
+    }
+
+    public openScoreChart(): void {
+
+        this.modalService.open("tic-tac-toe-score");
 
     }
 

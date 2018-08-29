@@ -10,11 +10,13 @@ import { TicTacToeStatus } from '../../logic/tic-tac-toe/server/tic-tac-toe-stat
 import { TicTacToeMove } from '../../logic/tic-tac-toe/server/tic-tac-toe-move';
 import { Games } from 'app/logic/games';
 import { TicTacToeSummaryElement } from 'app/logic/tic-tac-toe/server/tic-tac-toe-summary-element';
+import { Score } from 'app/shared/score';
 
 @Injectable()
 export class MultiplayerService {
 
     private socket: any;
+    public selectedGame: Games = Games.Login;
     public loginState: SystemMessage = new SystemMessage(false, "Not logged in. Please login or create a player");
     public isConnected: boolean = false;
     public allConnectedPlayers: Array<Player> = new Array<Player>();
@@ -23,6 +25,8 @@ export class MultiplayerService {
     public serverTicTacToeStatus: TicTacToeStatus = new TicTacToeStatus(-1);
     public localTicTacToeSquares: Array<string> = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
     public ticTacToeSummary: TicTacToeSummaryElement;
+    public ticTacToeHighestScores: Array<Score> = new Array<Score>();
+    public gameCurrentScore: string = "00000000";
     public localMessage: string = "";
     public joinedGame: Games = null;
 
@@ -169,6 +173,26 @@ export class MultiplayerService {
         });
     }
 
+    public saveTicTacToeScore(score: number): void {
+        this.socket.emit('ticTacToeSaveScore', this.currentPlayer, score);
+    }
+
+    public getTicTacToeHighestScores(numberOfLines: number): void {
+        this.socket.emit('ticTacToeScores', numberOfLines);
+    }
+
+    public onTicTacToeHighestScores(): Observable<Array<Score>> {
+        return new Observable<Array<Score>>(observer => {
+            this.socket.on('ticTacToeScores', (ticTacToeAllScores: Array<Score>) => observer.next(ticTacToeAllScores));
+        });
+    }
+
+    public onGetTicTacToeUserScore(): Observable<number> {
+        return new Observable<number>(observer => {
+            this.socket.on('ticTacToeUserScore', (score: number) => observer.next(score));
+        });
+    }
+
     /**
      * Listeners
      */
@@ -242,7 +266,15 @@ export class MultiplayerService {
 
             this.onTicTacToeSummary().subscribe((summaryElement: TicTacToeSummaryElement) => {
                 this.ticTacToeSummary = summaryElement;
-            })
+            });
+
+            this.onTicTacToeHighestScores().subscribe((highestScores: Array<Score>) => {
+                this.ticTacToeHighestScores = highestScores;
+            });
+
+            this.onGetTicTacToeUserScore().subscribe((userScore: number) => {
+                this.gameCurrentScore = this.formatScoreNumber(userScore);
+            });
         }
 
     }
@@ -286,9 +318,37 @@ export class MultiplayerService {
 
     }
 
+    public loadCurrentGameScore(): void {
+
+        this.socket.emit('ticTacToeUserScore', this.currentPlayer);
+
+    }
+
+    private formatScoreNumber(score: number): string {
+
+        let scoreString: string = score.toString();
+        let missingZeros: number = 8 - scoreString.length;
+
+        for (let i=0; i<missingZeros; i++) {
+            scoreString = "0" + scoreString;
+        }
+
+        return scoreString;
+
+    }
+
     private loadAllGamesSummary(): void {
 
         this.socket.emit('ticTacToeSummary');
+
+    }
+
+    public leaveCurrentGame(): void {
+
+        switch (this.joinedGame) {
+            case Games.TicTacToe: this.leaveTicTacToe(); break;
+            default: break;
+        }
 
     }
 

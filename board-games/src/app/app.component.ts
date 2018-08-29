@@ -1,7 +1,6 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { Component, OnInit } from '@angular/core';
 import { Games } from './logic/games';
+import { MultiplayerService } from 'app/shared/services/multiplayer.service';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +8,13 @@ import { Games } from './logic/games';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @ViewChild('sideBar') sideBar: SideBarComponent;
 
-  public selectedGame: Games;
-
-  constructor() { }
+  constructor(public multiplayerService: MultiplayerService) { }
 
   ngOnInit() {
-    this.selectedGame = Games.Login;
-  }
 
-  public onClick(): void {
-    this.selectedGame = this.sideBar.selectedGame;
+    this.multiplayerService.selectedGame = Games.Login;
+  
   }
 
 }

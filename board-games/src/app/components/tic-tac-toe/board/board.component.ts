@@ -12,6 +12,7 @@ export class BoardComponent implements OnInit {
     @ViewChildren('squares') squares: QueryList<SquareComponent>;
 
     public welcomeMessage: string = "Welcome to Tic-Tac-Toe!";
+    private scoreWasRefreshed: boolean = false;
 
     constructor(public multiplayerService: MultiplayerService) { }
 
@@ -33,6 +34,7 @@ export class BoardComponent implements OnInit {
 
             if (this.multiplayerService.serverTicTacToeStatus.gameOver) {
                 foundColor = "green";
+                this.refreshScore();
             }
             else {
                 if (this.multiplayerService.serverTicTacToeStatus.currentTurn.name === this.multiplayerService.currentPlayer.name) {
@@ -50,9 +52,19 @@ export class BoardComponent implements OnInit {
         return foundColor;
     }
 
+    public refreshScore(): void {
+
+        if (this.scoreWasRefreshed === false) {
+            this.scoreWasRefreshed = true;
+            this.multiplayerService.loadCurrentGameScore();
+        }
+
+    }
+
     public resetBoard(): void {
 
         this.multiplayerService.resetTicTacToe();
+        this.scoreWasRefreshed = false;
 
     }
 

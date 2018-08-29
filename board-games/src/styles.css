@@ -207,6 +207,14 @@
     text-align: center;
 }
 
+.app-modal-subgroup-text {
+    font-family: neat-chalk;
+    color: rgb(32, 71, 155);
+    font-size: 10px;
+    text-align: left;
+    padding-bottom: 6px;
+}
+
 .tabs {
     background: linear-gradient(rgba(148, 148, 148, 0.5), rgba(148, 148, 148, 0.5)), url("/assets/images/textured_paper.png");
     height: 36px;

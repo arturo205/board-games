@@ -10,13 +10,13 @@ import { ModalService } from '../../shared/services/modal.service';
 })
 export class SideBarComponent implements OnInit {
 
-    public selectedGame: Games;
+    private pendingScreenToOpen: string;
 
-    constructor(private multiplayerService: MultiplayerService, private modalService: ModalService) { }
+    constructor(public multiplayerService: MultiplayerService, private modalService: ModalService) { }
 
     ngOnInit() {
 
-        this.selectedGame = Games.Login;
+        this.pendingScreenToOpen = "";
 
     }
 
@@ -25,11 +25,15 @@ export class SideBarComponent implements OnInit {
     public onClick(game: string): void {
 
         if (this.playerIsLoggedIn(game)) {
-            if (game === 'ConnectFour') {
+            if (game === Games.ConnectFour) {
                 this.modalService.open('no-access');
             }
+            else if (this.multiplayerService.joinedGame !== null && this.multiplayerService.joinedGame !== game) {
+                this.pendingScreenToOpen = game;
+                this.modalService.open('close-game');
+            }
             else {
-                this.selectedGame = AllGames.getGame(game);
+                this.multiplayerService.selectedGame = AllGames.getGame(game);
             }
         }
 
@@ -53,6 +57,15 @@ export class SideBarComponent implements OnInit {
     public closeModal(id: string): void {
 
         this.modalService.close(id);
+
+    }
+
+    public leaveCurrentGame(): void {
+
+        this.multiplayerService.leaveCurrentGame();
+        this.multiplayerService.selectedGame = AllGames.getGame(this.pendingScreenToOpen);
+        this.pendingScreenToOpen = "";
+        this.modalService.close('close-game');
 
     }
 

@@ -2,6 +2,14 @@
     <div id="tic-tac-toe" class="row">
         <div>
             <div *ngIf="getGameStatus() === 0" class="groups groups-container" style="text-align: center;">
+                <h1 class="title">TIC TAC TOE</h1>
+                <div class="row">
+                    <button class="buttons" (click)="getRanking()">Ranking</button>
+                    <button class="buttons" (click)="openInstructions()">Instructions</button>
+                    <button class="buttons" (click)="openScoreChart()">About Score</button>
+                </div>
+            </div>
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container" style="text-align: center;">
                 <h1 class="title">NEW GAME</h1>
                 <div class="vertical-padding-10" style="padding-top: 0px;">
                     <img src="assets/images/new.png" width="60" height="60"/>
@@ -94,7 +102,57 @@
             </div>
         </div>
         <div>
+            <div class="groups groups-container" style="text-align: center;">
+                <h1 class="title">CURRENT SCORE</h1>
+                <div class="row" style="width: 100%; text-align: center;">
+                    <p class="app-modal-main-text" style="width: 100%; text-align: center;">{{ multiplayerService.gameCurrentScore }}</p>
+                </div>
+            </div>
             <app-chat></app-chat>
         </div>
     </div>
 </div>
+
+<app-modal id="tic-tac-toe-ranking">
+    <p class="title">TIC-TAC-TOE RANKING</p>
+    <p class="app-modal-main-text">Highest scores for tic-tac-toe so far!</p>
+    <div class="subgroup app-modal-subgroup-text">
+        <div class="row" style="color:rgb(136, 0, 0);">
+            <p class="col-md-2">#</p>
+            <p class="col-md-4">Player Name</p>
+            <p class="col-md-3">Score</p>
+            <p class="col-md-3">Date</p>
+        </div>
+        <div *ngFor="let score of multiplayerService.ticTacToeHighestScores; let i = index">
+            <div class="row" style="color:rgb(14, 60, 121);">
+                <p class="col-md-2">{{ i+1 }}</p>
+                <p class="col-md-4">{{ score.playerName }}</p>
+                <p class="col-md-3">{{ score.score }}</p>
+                <p class="col-md-3">{{ score.date }}</p>
+            </div>
+        </div>
+    </div>
+    <button class="buttons" (click)="closeModal('tic-tac-toe-ranking')">Close</button>
+</app-modal>
+
+<app-modal id="tic-tac-toe-instructions">
+    <p class="title">INSTRUCTIONS</p>
+    <div class="subgroup">
+        <p class="app-modal-subgroup-text">The game is played on a grid that's 3 squares by 3 squares.</p>
+        <p class="app-modal-subgroup-text">You are either X or O, your friend is the opposite. Players take turns putting their marks in empty squares.</p>
+        <p class="app-modal-subgroup-text">The first player to get 3 of their marks in a row (up, down, across, or diagonally) is the winner.</p>
+        <p class="app-modal-subgroup-text">When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie.</p>
+    </div>
+    <button class="buttons" (click)="closeModal('tic-tac-toe-instructions')">Close</button>
+</app-modal>
+
+<app-modal id="tic-tac-toe-score">
+    <p class="title">SCORE</p>
+    <p class="app-modal-main-text">Here is how you can get score points!</p>
+    <div class="subgroup">
+        <p class="app-modal-subgroup-text">Victory = 100 points</p>
+        <p class="app-modal-subgroup-text">Draw = 20 points</p>
+        <p class="app-modal-subgroup-text">Defeat = 0 points</p>
+    </div>
+    <button class="buttons" (click)="closeModal('tic-tac-toe-score')">Close</button>
+</app-modal>
