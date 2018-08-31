@@ -1,14 +1,17 @@
 <div class="header-layout">
-  <app-header></app-header>
+    <app-header></app-header>
 </div>
 <div class="row wrapper">
-  <div class="app-side-bar-main-layout">
-    <app-side-bar #sideBar></app-side-bar>
-  </div>
-  <div class="app-game-screen-layout">
-    <app-log-in *ngIf="multiplayerService.selectedGame === 'Login'"></app-log-in>
-    <app-tic-tac-toe *ngIf="multiplayerService.selectedGame === 'TicTacToe'"></app-tic-tac-toe>
-    <app-connect-four *ngIf="multiplayerService.selectedGame === 'ConnectFour'"></app-connect-four>
-    <app-other *ngIf="multiplayerService.selectedGame === 'Other'"></app-other>
-  </div>
+    <div class="app-side-bar-main-layout">
+        <app-side-bar #sideBar></app-side-bar>
+    </div>
+    <!--<div class="app-game-screen-layout">
+        <app-log-in *ngIf="multiplayerService.selectedGame === 'Login'"></app-log-in>
+        <app-tic-tac-toe *ngIf="multiplayerService.selectedGame === 'TicTacToe'"></app-tic-tac-toe>
+        <app-connect-four *ngIf="multiplayerService.selectedGame === 'ConnectFour'"></app-connect-four>
+        <app-other *ngIf="multiplayerService.selectedGame === 'Other'"></app-other>
+    </div>-->
+    <div class="app-game-screen-layout">
+        <app-connect-four></app-connect-four>
+    </div>
 </div>

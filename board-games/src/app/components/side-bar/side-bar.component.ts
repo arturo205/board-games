@@ -25,10 +25,10 @@ export class SideBarComponent implements OnInit {
     public onClick(game: string): void {
 
         if (this.playerIsLoggedIn(game)) {
-            if (game === Games.ConnectFour) {
+            /*if (game === Games.ConnectFour) {
                 this.modalService.open('no-access');
-            }
-            else if (this.multiplayerService.joinedGame !== null && this.multiplayerService.joinedGame !== game) {
+            } else */
+            if (this.multiplayerService.joinedGame !== null && this.multiplayerService.joinedGame !== game) {
                 this.pendingScreenToOpen = game;
                 this.modalService.open('close-game');
             }
