@@ -1,0 +1,6 @@
+.cf-board-layout {
+    width: 600px;
+    max-width: 600px;
+    display:flex;
+    flex-wrap: wrap;
+}

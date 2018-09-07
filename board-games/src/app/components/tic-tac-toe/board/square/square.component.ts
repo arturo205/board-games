@@ -19,12 +19,12 @@ export class SquareComponent implements OnInit {
 
     public onClick(): void {
 
-        if (this.multiplayerService.serverTicTacToeStatus.currentTurn.name === this.multiplayerService.currentPlayer.name) {
-            this.multiplayerService.performTicTacToeMove(new TicTacToeMove(this.multiplayerService.currentPlayer, this.key));
+        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.currentTurn.name === MultiplayerService.currentPlayer.name) {
+            this.multiplayerService.ticTacToeService.performTicTacToeMove(new TicTacToeMove(MultiplayerService.currentPlayer, this.key));
             this.multiplayerService.localMessage = "";
         }
         else {
-            this.multiplayerService.localMessage = this.multiplayerService.currentPlayer.name + " please wait for your turn.";
+            this.multiplayerService.localMessage = MultiplayerService.currentPlayer.name + " please wait for your turn.";
         }
 
     }
@@ -33,11 +33,11 @@ export class SquareComponent implements OnInit {
 
         let foundLayout: string = "";
 
-        if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 2) {
+        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 2) {
 
-            if (this.multiplayerService.serverTicTacToeStatus.gameOver) {
+            if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.gameOver) {
                 
-                if (Object.values(this.multiplayerService.serverTicTacToeStatus.winnerCombination).includes(this.key)) {
+                if (Object.values(this.multiplayerService.ticTacToeService.serverTicTacToeStatus.winnerCombination).includes(this.key)) {
                     foundLayout = "winner";
                 }
                 else {
@@ -45,13 +45,13 @@ export class SquareComponent implements OnInit {
                 }
             }
             else {
-                if (this.multiplayerService.localTicTacToeSquares[this.key] === this.multiplayerService.serverTicTacToeStatus.charactersFromPlayers[0]) {
+                if (this.multiplayerService.ticTacToeService.localTicTacToeSquares[this.key] === this.multiplayerService.ticTacToeService.serverTicTacToeStatus.charactersFromPlayers[0]) {
                     foundLayout = "player1";
                 }
-                else if (this.multiplayerService.localTicTacToeSquares[this.key] === this.multiplayerService.serverTicTacToeStatus.charactersFromPlayers[1]) {
+                else if (this.multiplayerService.ticTacToeService.localTicTacToeSquares[this.key] === this.multiplayerService.ticTacToeService.serverTicTacToeStatus.charactersFromPlayers[1]) {
                     foundLayout = "player2";
                 }
-                else if (this.multiplayerService.localTicTacToeSquares[this.key] === ' ') {
+                else if (this.multiplayerService.ticTacToeService.localTicTacToeSquares[this.key] === ' ') {
                     foundLayout = "empty";
                 }
             }

@@ -30,13 +30,13 @@ export class TicTacToeComponent implements OnInit {
 
     public joinGame(gameId: number): void {
 
-        this.multiplayerService.joinTicTacToeGame(gameId);
+        this.multiplayerService.ticTacToeService.joinTicTacToeGame(gameId);
 
     }
 
     public leaveGame(): void {
 
-        this.multiplayerService.leaveTicTacToe();
+        this.multiplayerService.ticTacToeService.leaveTicTacToe();
 
     }
 
@@ -51,13 +51,13 @@ export class TicTacToeComponent implements OnInit {
 
         let status: number = -1;
 
-        if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 0) {
+        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 0) {
             status = 0;
         }
-        else if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 1) {
+        else if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 1) {
             status = 1;
         }
-        else if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 2) {
+        else if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 2) {
             status = 2;
         }
 
@@ -84,7 +84,7 @@ export class TicTacToeComponent implements OnInit {
 
         let message: string = "";
 
-        switch (this.multiplayerService.serverTicTacToeStatus.playersConnected.length) {
+        switch (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length) {
             case 0: 
                 message = "Waiting for players to join!"; 
                 break;
@@ -120,7 +120,7 @@ export class TicTacToeComponent implements OnInit {
 
     public createNewGame(): void {
 
-        this.multiplayerService.newTicTacToeGame();
+        this.multiplayerService.ticTacToeService.newTicTacToeGame();
 
     }
 
@@ -138,7 +138,7 @@ export class TicTacToeComponent implements OnInit {
 
     public getRanking(): void {
 
-        this.multiplayerService.getTicTacToeHighestScores(10);
+        this.multiplayerService.getHighestScores(10);
         this.modalService.open("tic-tac-toe-ranking");
 
     }

@@ -1,1 +1,172 @@
-<app-cf-board></app-cf-board>
+<div class="app-main-background" style="height: 100%;">
+    <div id="connect-four" class="row">
+        <div>
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container" style="text-align: center;">
+                <h1 class="title">CONNECT FOUR</h1>
+                <div class="row">
+                    <button class="buttons" (click)="getRanking()">Ranking</button>
+                    <button class="buttons" (click)="openInstructions()">Instructions</button>
+                    <button class="buttons" (click)="openScoreChart()">About Score</button>
+                </div>
+            </div>
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container" style="text-align: center;">
+                <h1 class="title">NEW GAME</h1>
+                <div class="vertical-padding-10" style="padding-top: 0px;">
+                    <img src="assets/images/new.png" width="60" height="60"/>
+                </div>
+                <div class="row">
+                    <div class="row col-md-4">
+                        <p>Width:&nbsp;</p>
+                        <select name="boardWidthSelect" style="width: 60px; max-width: 60px;">
+                            <option [value]="boardWidth" *ngFor="let boardWidth of boardWidthChoices">{{boardWidth}}</option>
+                        </select>
+                    </div>
+                    <div class="row col-md-4">
+                        <p>Height:&nbsp;</p>
+                        <select name="boardHeightSelect" style="width: 60px; max-width: 60px;">
+                            <option [value]="boardHeight" *ngFor="let boardHeight of boardHeightChoices">{{boardHeight}}</option>
+                        </select>
+                    </div>
+                    <button class="buttons col-md-4" style="width: 150px; max-width: 150px;" (click)="createNewGame()">Create</button>
+                </div>
+            </div>
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container">
+                <h1 class="title">CREATED GAMES</h1>
+                <!--<div *ngFor="let summaryElement of multiplayerService.ticTacToeSummary">
+                    <div class="subgroup">
+                        <div class="row">
+                            <div *ngIf="summaryElement.player1 !== null" [ngClass]="{'col-md-12': summaryElement.player2 === null, 'col-md-5': summaryElement.player2 !== null}" class="row">
+                                <div class="icon-holder" [style.backgroundColor]="getIconColor(summaryElement.player1.colorId)">
+                                    <img style="margin-left: 0px;" src="{{ getIconImage(summaryElement.player1.iconId) }}" height="36" width="36">
+                                </div>
+                                <p class="current-game-message">{{ summaryElement.player1.name }}</p>
+                            </div>
+                            <div *ngIf="summaryElement.player2 !== null" class="row col-md-2">
+                                <p class="remark-message"> VS </p>
+                            </div>
+                            <div *ngIf="summaryElement.player2 !== null" class="row col-md-5">
+                                <div class="icon-holder" style="text-align: right;" [style.backgroundColor]="getIconColor(summaryElement.player2.colorId)">
+                                    <img style="margin-left: 0px;" src="{{ getIconImage(summaryElement.player2.iconId) }}" height="36" width="36">
+                                </div>
+                                <p class="current-game-message">{{ summaryElement.player2.name }}</p>
+                            </div>
+                        </div>
+                        <div class="tic-tac-toe-message">
+                            <p>{{ getSummaryMessageForGameInstance(summaryElement) }}</p>
+                        </div>
+                        <div class="row">
+                            <button *ngIf="getSummaryGameStatus(summaryElement) === 0" class="buttons" (click)="joinGame(summaryElement.id)">Join</button>
+                            <button *ngIf="getSummaryGameStatus(summaryElement) === 1" class="buttons" (click)="leaveGame()" disabled>See the match</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="multiplayerService.ticTacToeSummary.length === 0" class="subgroup">
+                    <div style="text-align: center;">
+                        <img src="assets/images/empty.png" width="60" height="60"/>
+                        <p class="tic-tac-toe-message">There are no games being played now.</p>
+                        <p class="tic-tac-toe-message">Please create a new one.</p>
+                    </div>
+                </div>-->
+            </div>
+            <div *ngIf="getGameStatus() === 1" class="groups groups-container">
+                <h1 class="title">NEW GAME</h1>
+                <div class="vertical-padding-10" style="width: 100%;">
+                    <div class="app-loading">
+                        <img src="assets/images/blocks.gif" width="80" height="80"/>
+                        <svg class="spinner" viewBox="25 25 50 50">
+                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="row vertical-padding-10">
+                    <p class="tic-tac-toe-message">Waiting for players to join...</p>
+                </div>
+                <div class="row vertical-padding-10">
+                    <button class="buttons" (click)="leaveGame()">Leave</button>
+                </div>
+            </div>
+            <!--<div *ngIf="getGameStatus() === 2" class="groups groups-container">
+                <h1 class="title">CURRENT GAME</h1>
+                <div class="row">
+                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 1" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverTicTacToeStatus.playersConnected[0].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverTicTacToeStatus.playersConnected[0].iconId) }}" height="36" width="36">
+                        </div>
+                        <p class="current-game-message">{{ multiplayerService.serverTicTacToeStatus.playersConnected[0].name }}</p>
+                    </div>
+                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 2" class="row col-md-2">
+                        <p class="remark-message"> VS </p>
+                    </div>
+                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 2" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverTicTacToeStatus.playersConnected[1].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverTicTacToeStatus.playersConnected[1].iconId) }}" height="36" width="36">
+                        </div>
+                        <p class="current-game-message">{{ multiplayerService.serverTicTacToeStatus.playersConnected[1].name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <button *ngIf="getGameStatus() === 2" class="buttons" (click)="restartGame()">Restart</button>
+                    <button *ngIf="getGameStatus() === 1 || getGameStatus() === 2" class="buttons" (click)="leaveGame()">Leave</button>
+                </div>
+            </div>-->
+            <div *ngIf="getGameStatus() === 0" class="groups groups-container">
+                <app-cf-board #board></app-cf-board>
+            </div>
+        </div>
+        <div>
+            <div class="groups groups-container" style="text-align: center;">
+                <h1 class="title">CURRENT SCORE</h1>
+                <div class="row" style="width: 100%; text-align: center;">
+                    <p class="app-modal-main-text" style="width: 100%; text-align: center;">{{ multiplayerService.gameCurrentScore }}</p>
+                </div>
+            </div>
+            <app-chat></app-chat>
+        </div>
+    </div>
+</div>
+
+<app-modal id="connect-four-ranking">
+    <p class="title">CONNECT FOUR RANKING</p>
+    <p class="app-modal-main-text">Highest scores for connect four so far!</p>
+    <div class="subgroup app-modal-subgroup-text">
+        <div class="row" style="color:rgb(136, 0, 0);">
+            <p class="col-md-2">#</p>
+            <p class="col-md-4">Player Name</p>
+            <p class="col-md-3">Score</p>
+            <p class="col-md-3">Date</p>
+        </div>
+        <div *ngFor="let score of multiplayerService.highestScoresForCurrentGame; let i = index">
+            <div class="row" style="color:rgb(14, 60, 121);">
+                <p class="col-md-2">{{ i+1 }}</p>
+                <p class="col-md-4">{{ score.playerName }}</p>
+                <p class="col-md-3">{{ score.score }}</p>
+                <p class="col-md-3">{{ score.date }}</p>
+            </div>
+        </div>
+    </div>
+    <button class="buttons" (click)="closeModal('connect-four-ranking')">Close</button>
+</app-modal>
+
+<app-modal id="connect-four-instructions">
+    <p class="title">INSTRUCTIONS</p>
+    <div class="subgroup">
+        <p class="app-modal-subgroup-text">This game is played on a vertical board wich has some hollow columns and rows.</p>
+        <p class="app-modal-subgroup-text">Each column has a hole in the upper part of the board, where pieces are introduced.</p>
+        <p class="app-modal-subgroup-text">There is a window for every square, so that pieces can be seen.</p>
+        <p class="app-modal-subgroup-text">Both players have a set of pieces. Each of them uses a different colour.</p> 
+        <p class="app-modal-subgroup-text">The board is empty at the start of the game.</p>
+        <p class="app-modal-subgroup-text">The aim for both players is to make a straight line of four own pieces. The line can be vertical, horizontal or diagonal.</p>
+    </div>
+    <button class="buttons" (click)="closeModal('connect-four-instructions')">Close</button>
+</app-modal>
+
+<app-modal id="connect-four-score">
+    <p class="title">SCORE</p>
+    <p class="app-modal-main-text">Here is how you can get score points!</p>
+    <div class="subgroup">
+        <p class="app-modal-subgroup-text">Victory = 100 points</p>
+        <p class="app-modal-subgroup-text">Draw = 30 points</p>
+        <p class="app-modal-subgroup-text">Defeat = 0 points</p>
+    </div>
+    <button class="buttons" (click)="closeModal('connect-four-score')">Close</button>
+</app-modal>

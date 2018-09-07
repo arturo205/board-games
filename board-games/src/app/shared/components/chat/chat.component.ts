@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit {
     public sendNewChatMessage(newChatMessage: string): void {
 
         if (newChatMessage.length > 0) {
-            let message: ChatMessage = new ChatMessage(this.multiplayerService.currentPlayer, newChatMessage);
+            let message: ChatMessage = new ChatMessage(MultiplayerService.currentPlayer, newChatMessage);
             this.multiplayerService.addNewChatMessage(message);
             (<HTMLInputElement>document.getElementById("newMessageInput")).value = "";
         }

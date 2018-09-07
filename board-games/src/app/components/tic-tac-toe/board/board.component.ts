@@ -30,14 +30,14 @@ export class BoardComponent implements OnInit {
 
         let foundColor: string = "";
 
-        if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 2) {
+        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 2) {
 
-            if (this.multiplayerService.serverTicTacToeStatus.gameOver) {
+            if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.gameOver) {
                 foundColor = "green";
                 this.refreshScore();
             }
             else {
-                if (this.multiplayerService.serverTicTacToeStatus.currentTurn.name === this.multiplayerService.currentPlayer.name) {
+                if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.currentTurn.name === MultiplayerService.currentPlayer.name) {
                     foundColor = "blue";
                 }
                 else {
@@ -63,14 +63,14 @@ export class BoardComponent implements OnInit {
 
     public resetBoard(): void {
 
-        this.multiplayerService.resetTicTacToe();
+        this.multiplayerService.ticTacToeService.resetTicTacToe();
         this.scoreWasRefreshed = false;
 
     }
 
     public playerJoined(): boolean {
 
-        return this.multiplayerService.joinedGame === Games.TicTacToe ? true : false;
+        return MultiplayerService.joinedGame === Games.TicTacToe ? true : false;
 
     }
 

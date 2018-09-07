@@ -20,6 +20,20 @@ export class AllGames {
         return foundGame;
     }
 
+    public static getGameId(game: Games): number {
+
+        let gameId: number = 0;
+
+        switch (game) {
+            case Games.TicTacToe: gameId = 1; break;
+            case Games.ConnectFour: gameId = 2; break;
+            default: break;
+        }
+
+        return gameId;
+
+    }
+
     public static getIconColor(index: number): string {
         
         let foundColor: string = "";

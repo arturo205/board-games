@@ -1,6 +1,6 @@
 import { Player } from "app/shared/player";
 
-export class TicTacToeMove {
+export class ConnectFourMove {
 
     public player: Player;
     public selectedPosition: number;

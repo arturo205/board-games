@@ -82,7 +82,7 @@ export class LogInComponent implements OnInit {
         let updatedColor: number = parseInt((<HTMLSelectElement>document.getElementsByName('update-user-color')[0]).value);
         let updatedIcon: number = parseInt((<HTMLSelectElement>document.getElementsByName('update-user-icon')[0]).value);
         let updatedPlayer: Player = new Player(updatedName, updatedPassword, updatedColor, updatedIcon);
-        updatedPlayer.id = this.multiplayerService.currentPlayer.id;
+        updatedPlayer.id = MultiplayerService.currentPlayer.id;
         this.multiplayerService.updatePlayer(updatedPlayer);
 
     }
@@ -133,9 +133,9 @@ export class LogInComponent implements OnInit {
 
     public getCurrentPlayerName(): string {
 
-        (<HTMLSelectElement>document.getElementsByName("update-user-color")[0]).options[this.multiplayerService.currentPlayer.colorId].selected = true;
-        (<HTMLSelectElement>document.getElementsByName("update-user-icon")[0]).options[this.multiplayerService.currentPlayer.iconId].selected = true;
-        return this.multiplayerService.currentPlayer.name;
+        (<HTMLSelectElement>document.getElementsByName("update-user-color")[0]).options[MultiplayerService.currentPlayer.colorId].selected = true;
+        (<HTMLSelectElement>document.getElementsByName("update-user-icon")[0]).options[MultiplayerService.currentPlayer.iconId].selected = true;
+        return MultiplayerService.currentPlayer.name;
 
     }
 

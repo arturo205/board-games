@@ -33,4 +33,10 @@ export class DynamicComponentService {
         return component.instance;
     }
 
+    public removeAllDynamicElements(): void {
+
+        this.rootViewContainer.clear();
+
+    }
+
 }

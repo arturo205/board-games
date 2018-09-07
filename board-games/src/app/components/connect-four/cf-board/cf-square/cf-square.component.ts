@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MultiplayerService } from 'app/shared/services/multiplayer.service';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @Component({
     selector: 'app-cf-square',
@@ -13,7 +15,7 @@ export class CfSquareComponent implements OnInit {
     public customMargin: number;
     public id: number;
 
-    constructor() {
+    constructor(public multiplayerService: MultiplayerService) {
 
         this.selectedClass = "player-one";
         this.customWidth = 10;
@@ -47,6 +49,14 @@ export class CfSquareComponent implements OnInit {
     public onClick(): void {
 
         this.selectedClass = (this.selectedClass === "player-one") ? "player-two" : "player-one";
+
+        if (this.multiplayerService.connectFourService.serverConnectFourStatus.currentTurn.name === ServiceHelper.currentPlayer.name) {
+            //this.multiplayerService.performTicTacToeMove(new TicTacToeMove(this.multiplayerService.currentPlayer, this.key));
+            this.multiplayerService.localMessage = "";
+        }
+        else {
+            this.multiplayerService.localMessage = ServiceHelper.currentPlayer.name + " please wait for your turn.";
+        }
 
     }
 

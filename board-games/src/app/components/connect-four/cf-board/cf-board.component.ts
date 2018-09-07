@@ -21,9 +21,9 @@ export class CfBoardComponent implements OnInit {
     constructor(@Inject(DynamicComponentService) dynamicComponentsService) {
         this.dynamicComponentsService = dynamicComponentsService;
         this.dynamicSquares = new Array<CfSquareComponent>();
-        this.maxWidth = 500;
-        this.horizontalCount = 10;
-        this.verticalCount = 18;
+        this.maxWidth = 600;
+        this.horizontalCount = 7;
+        this.verticalCount = 6;
         this.squareMargin = 2;
     }
 
@@ -31,18 +31,29 @@ export class CfBoardComponent implements OnInit {
 
     ngAfterViewInit() {
 
+        this.dynamicComponentsService.setRootViewContainerRef(this.dynamicBoard);
+    
+    }
+
+    public drawBoard(width: number, height: number): void {
+
+        this.dynamicComponentsService.removeAllDynamicElements();
+        this.dynamicSquares.splice(0, this.dynamicSquares.length);
+
+        this.horizontalCount = width;
+        this.verticalCount = height;
+
         let squareWidth: number = 0;
         let newSquare: CfSquareComponent;
         let squaresTotal: number = this.horizontalCount * this.verticalCount;
 
         squareWidth = (this.maxWidth / this.horizontalCount) - (this.squareMargin * 2);
 
-        this.dynamicComponentsService.setRootViewContainerRef(this.dynamicBoard);
-
         for (let i = 0; i < squaresTotal; i++) {
             newSquare = this.dynamicComponentsService.addDynamicComponent(DynamicComponents.ConnectFourSquare);
             newSquare.setWidthAndHeight(squareWidth);
             newSquare.setMargin(this.squareMargin);
+            newSquare.setId(i);
             this.dynamicSquares.push(newSquare);
         }
 

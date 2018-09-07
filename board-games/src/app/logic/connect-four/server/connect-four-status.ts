@@ -1,7 +1,7 @@
 import { Player } from "app/shared/player";
 import { SystemMessage } from "app/shared/system-message";
 
-export class TicTacToeStatus {
+export class ConnectFourStatus {
 
     public gameId: number;
     public squaresStatus: Array<Player>;
@@ -9,7 +9,6 @@ export class TicTacToeStatus {
     public currentTurn: Player;
     public gameOver: boolean;
     public playersConnected: Array<Player>;
-    public charactersFromPlayers: Array<string>;
     public systemMessage: SystemMessage;
 
     constructor(gameID: number) {
@@ -20,7 +19,6 @@ export class TicTacToeStatus {
         this.currentTurn = new Player("generic_player", "", 0, 0);
         this.gameOver = false;
         this.playersConnected = new Array<Player>();
-        this.charactersFromPlayers = new Array<string>();
         this.systemMessage = new SystemMessage(true, "");
         
     }

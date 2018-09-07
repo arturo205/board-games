@@ -1,5 +1,11 @@
-<div style="width: 500px; max-width: 500px; margin: 0; padding: 0px; display: flex; flex-wrap: wrap;">
-    <div style="line-height: 56px; height: 56px; margin: 0; padding: 0px; display: flex; flex-wrap: wrap;">
-        <ng-template #dynamicBoard style="line-height: 56px; height: 56px; margin: 0; padding: 0px; display: flex; flex-wrap: wrap;"></ng-template>
+<section>
+    <!--<div class="messages-panel" [ngClass]="{'red-turn': getTurnColor() === 'red', 
+                'blue-turn': getTurnColor() === 'blue', 
+                'victory': getTurnColor() === 'green'}">
+        <p *ngIf="multiplayerService.getGeneralMessage() !== null && multiplayerService.getGeneralMessage().length > 0">{{ multiplayerService.getGeneralMessage() }}</p>
+        <p *ngIf="multiplayerService.getGeneralMessage() === null || multiplayerService.getGeneralMessage().length < 5">{{ welcomeMessage }}</p>
+    </div>-->
+    <div class="cf-board-layout">
+        <ng-template #dynamicBoard></ng-template>
     </div>
-</div>
+</section>

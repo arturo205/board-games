@@ -123,7 +123,7 @@
             <p class="col-md-3">Score</p>
             <p class="col-md-3">Date</p>
         </div>
-        <div *ngFor="let score of multiplayerService.ticTacToeHighestScores; let i = index">
+        <div *ngFor="let score of multiplayerService.highestScoresForCurrentGame; let i = index">
             <div class="row" style="color:rgb(14, 60, 121);">
                 <p class="col-md-2">{{ i+1 }}</p>
                 <p class="col-md-4">{{ score.playerName }}</p>
