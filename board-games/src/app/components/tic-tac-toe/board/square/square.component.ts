@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MultiplayerService } from '../../../../shared/services/multiplayer.service';
 import { TicTacToeMove } from '../../../../logic/tic-tac-toe/server/tic-tac-toe-move';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @Component({
     selector: 'app-square',
@@ -19,12 +20,12 @@ export class SquareComponent implements OnInit {
 
     public onClick(): void {
 
-        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.currentTurn.name === MultiplayerService.currentPlayer.name) {
-            this.multiplayerService.ticTacToeService.performTicTacToeMove(new TicTacToeMove(MultiplayerService.currentPlayer, this.key));
+        if (this.multiplayerService.ticTacToe.serverStatus.currentTurn.name === ServiceHelper.currentPlayer.name) {
+            this.multiplayerService.ticTacToe.performTicTacToeMove(new TicTacToeMove(ServiceHelper.currentPlayer, this.key));
             this.multiplayerService.localMessage = "";
         }
         else {
-            this.multiplayerService.localMessage = MultiplayerService.currentPlayer.name + " please wait for your turn.";
+            this.multiplayerService.localMessage = ServiceHelper.currentPlayer.name + " please wait for your turn.";
         }
 
     }
@@ -33,11 +34,11 @@ export class SquareComponent implements OnInit {
 
         let foundLayout: string = "";
 
-        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 2) {
+        if (this.multiplayerService.ticTacToe.serverStatus.playersConnected.length === 2) {
 
-            if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.gameOver) {
+            if (this.multiplayerService.ticTacToe.serverStatus.gameOver) {
                 
-                if (Object.values(this.multiplayerService.ticTacToeService.serverTicTacToeStatus.winnerCombination).includes(this.key)) {
+                if (Object.values(this.multiplayerService.ticTacToe.serverStatus.winnerCombination).includes(this.key)) {
                     foundLayout = "winner";
                 }
                 else {
@@ -45,13 +46,13 @@ export class SquareComponent implements OnInit {
                 }
             }
             else {
-                if (this.multiplayerService.ticTacToeService.localTicTacToeSquares[this.key] === this.multiplayerService.ticTacToeService.serverTicTacToeStatus.charactersFromPlayers[0]) {
+                if (this.multiplayerService.ticTacToe.localSquares[this.key] === this.multiplayerService.ticTacToe.serverStatus.charactersFromPlayers[0]) {
                     foundLayout = "player1";
                 }
-                else if (this.multiplayerService.ticTacToeService.localTicTacToeSquares[this.key] === this.multiplayerService.ticTacToeService.serverTicTacToeStatus.charactersFromPlayers[1]) {
+                else if (this.multiplayerService.ticTacToe.localSquares[this.key] === this.multiplayerService.ticTacToe.serverStatus.charactersFromPlayers[1]) {
                     foundLayout = "player2";
                 }
-                else if (this.multiplayerService.ticTacToeService.localTicTacToeSquares[this.key] === ' ') {
+                else if (this.multiplayerService.ticTacToe.localSquares[this.key] === ' ') {
                     foundLayout = "empty";
                 }
             }

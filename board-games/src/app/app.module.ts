@@ -17,6 +17,7 @@ import { MultiplayerService } from './shared/services/multiplayer.service';
 import { ChatComponent } from './shared/components/chat/chat.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @NgModule({
   declarations: [

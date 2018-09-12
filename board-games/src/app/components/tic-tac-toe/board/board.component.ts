@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { SquareComponent } from './square/square.component';
 import { MultiplayerService } from '../../../shared/services/multiplayer.service';
 import { Games } from 'app/logic/games';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @Component({
     selector: 'app-board',
@@ -30,14 +31,14 @@ export class BoardComponent implements OnInit {
 
         let foundColor: string = "";
 
-        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 2) {
+        if (this.multiplayerService.ticTacToe.serverStatus.playersConnected.length === 2) {
 
-            if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.gameOver) {
+            if (this.multiplayerService.ticTacToe.serverStatus.gameOver) {
                 foundColor = "green";
                 this.refreshScore();
             }
             else {
-                if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.currentTurn.name === MultiplayerService.currentPlayer.name) {
+                if (this.multiplayerService.ticTacToe.serverStatus.currentTurn.name === ServiceHelper.currentPlayer.name) {
                     foundColor = "blue";
                 }
                 else {
@@ -63,14 +64,14 @@ export class BoardComponent implements OnInit {
 
     public resetBoard(): void {
 
-        this.multiplayerService.ticTacToeService.resetTicTacToe();
+        this.multiplayerService.ticTacToe.resetTicTacToe();
         this.scoreWasRefreshed = false;
 
     }
 
     public playerJoined(): boolean {
 
-        return MultiplayerService.joinedGame === Games.TicTacToe ? true : false;
+        return ServiceHelper.joinedGame === Games.TicTacToe ? true : false;
 
     }
 

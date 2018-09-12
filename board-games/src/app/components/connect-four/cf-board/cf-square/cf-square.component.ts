@@ -50,7 +50,7 @@ export class CfSquareComponent implements OnInit {
 
         this.selectedClass = (this.selectedClass === "player-one") ? "player-two" : "player-one";
 
-        if (this.multiplayerService.connectFourService.serverConnectFourStatus.currentTurn.name === ServiceHelper.currentPlayer.name) {
+        if (this.multiplayerService.connectFour.serverStatus.currentTurn.name === ServiceHelper.currentPlayer.name) {
             //this.multiplayerService.performTicTacToeMove(new TicTacToeMove(this.multiplayerService.currentPlayer, this.key));
             this.multiplayerService.localMessage = "";
         }

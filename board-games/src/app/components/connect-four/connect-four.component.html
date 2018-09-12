@@ -32,7 +32,7 @@
             </div>
             <div *ngIf="getGameStatus() === 0" class="groups groups-container">
                 <h1 class="title">CREATED GAMES</h1>
-                <!--<div *ngFor="let summaryElement of multiplayerService.ticTacToeSummary">
+                <!--<div *ngFor="let summaryElement of multiplayerService.summary">
                     <div class="subgroup">
                         <div class="row">
                             <div *ngIf="summaryElement.player1 !== null" [ngClass]="{'col-md-12': summaryElement.player2 === null, 'col-md-5': summaryElement.player2 !== null}" class="row">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="multiplayerService.ticTacToeSummary.length === 0" class="subgroup">
+                <div *ngIf="multiplayerService.summary.length === 0" class="subgroup">
                     <div style="text-align: center;">
                         <img src="assets/images/empty.png" width="60" height="60"/>
                         <p class="tic-tac-toe-message">There are no games being played now.</p>
@@ -88,20 +88,20 @@
             <!--<div *ngIf="getGameStatus() === 2" class="groups groups-container">
                 <h1 class="title">CURRENT GAME</h1>
                 <div class="row">
-                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 1" class="row col-md-5">
-                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverTicTacToeStatus.playersConnected[0].colorId)">
-                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverTicTacToeStatus.playersConnected[0].iconId) }}" height="36" width="36">
+                    <div *ngIf="multiplayerService.serverStatus.playersConnected.length >= 1" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverStatus.playersConnected[0].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverStatus.playersConnected[0].iconId) }}" height="36" width="36">
                         </div>
-                        <p class="current-game-message">{{ multiplayerService.serverTicTacToeStatus.playersConnected[0].name }}</p>
+                        <p class="current-game-message">{{ multiplayerService.serverStatus.playersConnected[0].name }}</p>
                     </div>
-                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 2" class="row col-md-2">
+                    <div *ngIf="multiplayerService.serverStatus.playersConnected.length >= 2" class="row col-md-2">
                         <p class="remark-message"> VS </p>
                     </div>
-                    <div *ngIf="multiplayerService.serverTicTacToeStatus.playersConnected.length >= 2" class="row col-md-5">
-                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverTicTacToeStatus.playersConnected[1].colorId)">
-                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverTicTacToeStatus.playersConnected[1].iconId) }}" height="36" width="36">
+                    <div *ngIf="multiplayerService.serverStatus.playersConnected.length >= 2" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverStatus.playersConnected[1].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverStatus.playersConnected[1].iconId) }}" height="36" width="36">
                         </div>
-                        <p class="current-game-message">{{ multiplayerService.serverTicTacToeStatus.playersConnected[1].name }}</p>
+                        <p class="current-game-message">{{ multiplayerService.serverStatus.playersConnected[1].name }}</p>
                     </div>
                 </div>
                 <div class="row">

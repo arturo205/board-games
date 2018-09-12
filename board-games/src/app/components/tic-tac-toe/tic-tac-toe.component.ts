@@ -3,7 +3,7 @@ import { BoardComponent } from './board/board.component';
 import { MultiplayerService } from '../../shared/services/multiplayer.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { AllGames } from 'app/logic/games';
-import { TicTacToeSummaryElement } from '../../logic/tic-tac-toe/server/tic-tac-toe-summary-element';
+import { summaryElement } from '../../logic/tic-tac-toe/server/tic-tac-toe-summary-element';
 import { Score } from 'app/shared/score';
 
 @Component({
@@ -30,13 +30,13 @@ export class TicTacToeComponent implements OnInit {
 
     public joinGame(gameId: number): void {
 
-        this.multiplayerService.ticTacToeService.joinTicTacToeGame(gameId);
+        this.multiplayerService.ticTacToe.joinTicTacToeGame(gameId);
 
     }
 
     public leaveGame(): void {
 
-        this.multiplayerService.ticTacToeService.leaveTicTacToe();
+        this.multiplayerService.ticTacToe.leaveTicTacToe();
 
     }
 
@@ -51,13 +51,13 @@ export class TicTacToeComponent implements OnInit {
 
         let status: number = -1;
 
-        if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 0) {
+        if (this.multiplayerService.ticTacToe.serverStatus.playersConnected.length === 0) {
             status = 0;
         }
-        else if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 1) {
+        else if (this.multiplayerService.ticTacToe.serverStatus.playersConnected.length === 1) {
             status = 1;
         }
-        else if (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length === 2) {
+        else if (this.multiplayerService.ticTacToe.serverStatus.playersConnected.length === 2) {
             status = 2;
         }
 
@@ -65,7 +65,7 @@ export class TicTacToeComponent implements OnInit {
 
     }
 
-    public getSummaryGameStatus(summary: TicTacToeSummaryElement): number {
+    public getSummaryGameStatus(summary: summaryElement): number {
 
         let status: number = -1;
 
@@ -84,7 +84,7 @@ export class TicTacToeComponent implements OnInit {
 
         let message: string = "";
 
-        switch (this.multiplayerService.ticTacToeService.serverTicTacToeStatus.playersConnected.length) {
+        switch (this.multiplayerService.ticTacToe.serverStatus.playersConnected.length) {
             case 0: 
                 message = "Waiting for players to join!"; 
                 break;
@@ -103,7 +103,7 @@ export class TicTacToeComponent implements OnInit {
 
     }
 
-    public getSummaryMessageForGameInstance(summary: TicTacToeSummaryElement) {
+    public getSummaryMessageForGameInstance(summary: summaryElement) {
 
         let message: string = "";
 
@@ -120,7 +120,7 @@ export class TicTacToeComponent implements OnInit {
 
     public createNewGame(): void {
 
-        this.multiplayerService.ticTacToeService.newTicTacToeGame();
+        this.multiplayerService.ticTacToe.newTicTacToeGame();
 
     }
 

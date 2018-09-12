@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MultiplayerService } from '../../services/multiplayer.service';
 import { ChatMessage } from '../../chat-message';
 import { AllGames } from 'app/logic/games';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @Component({
     selector: 'app-chat',
@@ -30,7 +31,7 @@ export class ChatComponent implements OnInit {
     public sendNewChatMessage(newChatMessage: string): void {
 
         if (newChatMessage.length > 0) {
-            let message: ChatMessage = new ChatMessage(MultiplayerService.currentPlayer, newChatMessage);
+            let message: ChatMessage = new ChatMessage(ServiceHelper.currentPlayer, newChatMessage);
             this.multiplayerService.addNewChatMessage(message);
             (<HTMLInputElement>document.getElementById("newMessageInput")).value = "";
         }

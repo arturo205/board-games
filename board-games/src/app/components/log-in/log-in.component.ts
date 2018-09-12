@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MultiplayerService } from '../../shared/services/multiplayer.service';
 import { Player } from '../../shared/player';
 import { Games, AllGames } from 'app/logic/games';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @Component({
     selector: 'app-log-in',
@@ -82,7 +83,7 @@ export class LogInComponent implements OnInit {
         let updatedColor: number = parseInt((<HTMLSelectElement>document.getElementsByName('update-user-color')[0]).value);
         let updatedIcon: number = parseInt((<HTMLSelectElement>document.getElementsByName('update-user-icon')[0]).value);
         let updatedPlayer: Player = new Player(updatedName, updatedPassword, updatedColor, updatedIcon);
-        updatedPlayer.id = MultiplayerService.currentPlayer.id;
+        updatedPlayer.id = ServiceHelper.currentPlayer.id;
         this.multiplayerService.updatePlayer(updatedPlayer);
 
     }
@@ -133,9 +134,9 @@ export class LogInComponent implements OnInit {
 
     public getCurrentPlayerName(): string {
 
-        (<HTMLSelectElement>document.getElementsByName("update-user-color")[0]).options[MultiplayerService.currentPlayer.colorId].selected = true;
-        (<HTMLSelectElement>document.getElementsByName("update-user-icon")[0]).options[MultiplayerService.currentPlayer.iconId].selected = true;
-        return MultiplayerService.currentPlayer.name;
+        (<HTMLSelectElement>document.getElementsByName("update-user-color")[0]).options[ServiceHelper.currentPlayer.colorId].selected = true;
+        (<HTMLSelectElement>document.getElementsByName("update-user-icon")[0]).options[ServiceHelper.currentPlayer.iconId].selected = true;
+        return ServiceHelper.currentPlayer.name;
 
     }
 

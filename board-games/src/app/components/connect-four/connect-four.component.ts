@@ -52,13 +52,13 @@ export class ConnectFourComponent implements OnInit {
 
         /*let status: number = -1;
 
-        if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 0) {
+        if (this.multiplayerService.serverStatus.playersConnected.length === 0) {
             status = 0;
         }
-        else if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 1) {
+        else if (this.multiplayerService.serverStatus.playersConnected.length === 1) {
             status = 1;
         }
-        else if (this.multiplayerService.serverTicTacToeStatus.playersConnected.length === 2) {
+        else if (this.multiplayerService.serverStatus.playersConnected.length === 2) {
             status = 2;
         }
 
@@ -68,7 +68,7 @@ export class ConnectFourComponent implements OnInit {
 
     }
 
-    /*public getSummaryGameStatus(summary: TicTacToeSummaryElement): number {
+    /*public getSummaryGameStatus(summary: summaryElement): number {
 
         let status: number = -1;
 
@@ -87,7 +87,7 @@ export class ConnectFourComponent implements OnInit {
 
         /*let message: string = "";
 
-        switch (this.multiplayerService.serverTicTacToeStatus.playersConnected.length) {
+        switch (this.multiplayerService.serverStatus.playersConnected.length) {
             case 0:
                 message = "Waiting for players to join!";
                 break;
@@ -108,7 +108,7 @@ export class ConnectFourComponent implements OnInit {
 
     }
 
-    /*public getSummaryMessageForGameInstance(summary: TicTacToeSummaryElement) {
+    /*public getSummaryMessageForGameInstance(summary: summaryElement) {
 
         let message: string = "";
 
@@ -125,10 +125,11 @@ export class ConnectFourComponent implements OnInit {
 
     public createNewGame(): void {
 
-        //this.multiplayerService.newTicTacToeGame();
         let boardWidth: number = this.getValueFromSelect("boardWidthSelect");
         let boardHeight =  this.getValueFromSelect("boardHeightSelect");
-        this.board.drawBoard(boardWidth, boardHeight);
+        //this.board.drawBoard(boardWidth, boardHeight);
+        //this.multiplayerService.newTicTacToeGame();
+        this.multiplayerService.connectFour.newConnectFourGame(boardWidth, boardHeight);
 
     }
 

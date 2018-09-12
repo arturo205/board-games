@@ -1,25 +1,24 @@
 import { Injectable } from "@angular/core";
 import { TicTacToeStatus } from "app/logic/tic-tac-toe/server/tic-tac-toe-status";
-import { TicTacToeSummaryElement } from "app/logic/tic-tac-toe/server/tic-tac-toe-summary-element";
+import { summaryElement } from "app/logic/tic-tac-toe/server/tic-tac-toe-summary-element";
 import { Observable } from "rxjs";
 import { SystemMessage } from "app/shared/system-message";
 import { TicTacToeMove } from "app/logic/tic-tac-toe/server/tic-tac-toe-move";
-import { MultiplayerService } from "app/shared/services/multiplayer.service";
 import { Games } from "app/logic/games";
 import { ServiceHelper } from "app/shared/services/general/general-objects";
 
 @Injectable()
 export class TicTacToeService {
 
-    public serverTicTacToeStatus: TicTacToeStatus;
-    public localTicTacToeSquares: Array<string>;
-    public ticTacToeSummary: TicTacToeSummaryElement;
+    public serverStatus: TicTacToeStatus;
+    public localSquares: Array<string>;
+    public summary: summaryElement;
 
     public constructor() {
 
-        this.serverTicTacToeStatus = new TicTacToeStatus(-1);
-        this.localTicTacToeSquares = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-        this.ticTacToeSummary = null;
+        this.serverStatus = new TicTacToeStatus(-1);
+        this.localSquares = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+        this.summary = null;
 
     }
 
@@ -44,22 +43,22 @@ export class TicTacToeService {
     }
 
     public performTicTacToeMove(move: TicTacToeMove): void {
-        ServiceHelper.socket.emit('performTicTacToeMove', move, this.serverTicTacToeStatus.gameId);
+        ServiceHelper.socket.emit('performTicTacToeMove', move, this.serverStatus.gameId);
     }
 
     public resetTicTacToe(): void {
-        ServiceHelper.socket.emit('resetTicTacToe', this.serverTicTacToeStatus.gameId);
+        ServiceHelper.socket.emit('resetTicTacToe', this.serverStatus.gameId);
     }
 
     public leaveTicTacToe(): void {
-        ServiceHelper.socket.emit('leaveTicTacToe', ServiceHelper.currentPlayer, this.serverTicTacToeStatus.gameId);
+        ServiceHelper.socket.emit('leaveTicTacToe', ServiceHelper.currentPlayer, this.serverStatus.gameId);
         ServiceHelper.joinedGame = null;
-        this.serverTicTacToeStatus = new TicTacToeStatus(-1);
+        this.serverStatus = new TicTacToeStatus(-1);
     }
 
-    public onTicTacToeSummary(): Observable<TicTacToeSummaryElement> {
-        return new Observable<TicTacToeSummaryElement>(observer => {
-            ServiceHelper.socket.on('ticTacToeSummary', (summaryElement: TicTacToeSummaryElement) => observer.next(summaryElement));
+    public onsummary(): Observable<summaryElement> {
+        return new Observable<summaryElement>(observer => {
+            ServiceHelper.socket.on('ticTacToeSummary', (summaryElement: summaryElement) => observer.next(summaryElement));
         });
     }
 
@@ -70,16 +69,16 @@ export class TicTacToeService {
     public addListeners(): void {
 
         this.onTicTacToeStatus().subscribe((status: TicTacToeStatus) => {
-            this.serverTicTacToeStatus = status;
+            this.serverStatus = status;
             this.updateLocalTicTacToeObjects();
         });
 
         this.onTicTacToeSystemMessage().subscribe((message: SystemMessage) => {
-            this.serverTicTacToeStatus.systemMessage = message;
+            this.serverStatus.systemMessage = message;
         });
 
-        this.onTicTacToeSummary().subscribe((summaryElement: TicTacToeSummaryElement) => {
-            this.ticTacToeSummary = summaryElement;
+        this.onsummary().subscribe((summaryElement: summaryElement) => {
+            this.summary = summaryElement;
         });
 
     }
@@ -88,18 +87,18 @@ export class TicTacToeService {
 
         ServiceHelper.joinedGame = this.playerJoinedTicTacToe() ? Games.TicTacToe : null;
 
-        this.serverTicTacToeStatus.squaresStatus.forEach((serverPlayerObj, index) => {
+        this.serverStatus.squaresStatus.forEach((serverPlayerObj, index) => {
             
-            if (serverPlayerObj !== null && this.serverTicTacToeStatus.playersConnected.length === 2 && this.serverTicTacToeStatus.charactersFromPlayers.length == 2) {
-                if (serverPlayerObj.name === this.serverTicTacToeStatus.playersConnected[0].name) {
-                    this.localTicTacToeSquares[index] = this.serverTicTacToeStatus.charactersFromPlayers[0];
+            if (serverPlayerObj !== null && this.serverStatus.playersConnected.length === 2 && this.serverStatus.charactersFromPlayers.length == 2) {
+                if (serverPlayerObj.name === this.serverStatus.playersConnected[0].name) {
+                    this.localSquares[index] = this.serverStatus.charactersFromPlayers[0];
                 }
-                else if (serverPlayerObj.name === this.serverTicTacToeStatus.playersConnected[1].name) {
-                    this.localTicTacToeSquares[index] = this.serverTicTacToeStatus.charactersFromPlayers[1];
+                else if (serverPlayerObj.name === this.serverStatus.playersConnected[1].name) {
+                    this.localSquares[index] = this.serverStatus.charactersFromPlayers[1];
                 }
             }
-            else if (serverPlayerObj === null && this.serverTicTacToeStatus.playersConnected.length === 2 && this.serverTicTacToeStatus.charactersFromPlayers.length == 2) {
-                this.localTicTacToeSquares[index] = " ";
+            else if (serverPlayerObj === null && this.serverStatus.playersConnected.length === 2 && this.serverStatus.charactersFromPlayers.length == 2) {
+                this.localSquares[index] = " ";
             }
         });
 
@@ -109,7 +108,7 @@ export class TicTacToeService {
 
         let playerIsInArray: boolean = false;
 
-        this.serverTicTacToeStatus.playersConnected.forEach(player => {
+        this.serverStatus.playersConnected.forEach(player => {
             if (player.name === ServiceHelper.currentPlayer.name) {
                 playerIsInArray = true;
             }

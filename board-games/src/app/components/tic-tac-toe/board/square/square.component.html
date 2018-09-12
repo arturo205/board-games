@@ -5,7 +5,7 @@
                  'empty-layout': getLayoutType() === 'empty', 
                  'winner-layout': getLayoutType() === 'winner',
                  'non-winner-layout': getLayoutType() === 'nonWinner'}">
-  <p class="square-p" *ngIf="multiplayerService.localTicTacToeSquares.length === 9">
-    {{ multiplayerService.localTicTacToeSquares[key] }}
+  <p class="square-p" *ngIf="multiplayerService.ticTacToe.localSquares.length === 9">
+    {{ multiplayerService.ticTacToe.localSquares[key] }}
   </p>
 </div>

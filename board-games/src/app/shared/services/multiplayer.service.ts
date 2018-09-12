@@ -15,8 +15,8 @@ import { ServiceHelper } from 'app/shared/services/general/general-objects';
 @Injectable()
 export class MultiplayerService {
 
-    public ticTacToeService: TicTacToeService = new TicTacToeService();
-    public connectFourService: ConnectFourService = new ConnectFourService();
+    public ticTacToe: TicTacToeService = new TicTacToeService();
+    public connectFour: ConnectFourService = new ConnectFourService();
     public selectedGame: Games = Games.Login;
     public loginState: SystemMessage = new SystemMessage(false, "Not logged in. Please login or create a player");
     public isConnected: boolean = false;
@@ -33,6 +33,18 @@ export class MultiplayerService {
     /**
      * General calls
      */
+
+    public getSocket(): any {
+        return ServiceHelper.socket;
+    }
+
+    public getJoinedGame(): Games {
+        return ServiceHelper.joinedGame;
+    }
+
+    public getCurrentPlayer(): Player {
+        return ServiceHelper.currentPlayer;
+    }
 
     public disconnectFromServer(): void {
         ServiceHelper.socket.emit('disconnect');
@@ -207,14 +219,14 @@ export class MultiplayerService {
                 this.gameCurrentScore = this.formatScoreNumber(userScore);
             });
 
-            this.ticTacToeService.addListeners();
-            this.connectFourService.addListeners();
+            this.ticTacToe.addListeners();
+            this.ticTacToe.addListeners();
         }
 
     }
 
     public getGeneralMessage(): string {
-        return this.ticTacToeService.serverTicTacToeStatus.systemMessage.message + " " + this.localMessage;
+        return this.ticTacToe.serverStatus.systemMessage.message + " " + this.localMessage;
     }
 
     public loadCurrentGameScore(): void {
@@ -245,7 +257,7 @@ export class MultiplayerService {
     public leaveCurrentGame(): void {
 
         switch (ServiceHelper.joinedGame) {
-            case Games.TicTacToe: this.ticTacToeService.leaveTicTacToe(); break;
+            case Games.TicTacToe: this.ticTacToe.leaveTicTacToe(); break;
             default: break;
         }
 

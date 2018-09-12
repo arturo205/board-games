@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Games, AllGames } from '../../logic/games';
 import { MultiplayerService } from '../../shared/services/multiplayer.service';
 import { ModalService } from '../../shared/services/modal.service';
+import { ServiceHelper } from 'app/shared/services/general/general-objects';
 
 @Component({
     selector: 'app-side-bar',
@@ -25,7 +26,7 @@ export class SideBarComponent implements OnInit {
     public onClick(game: string): void {
 
         if (this.playerIsLoggedIn(game)) {
-            if (MultiplayerService.joinedGame !== null && MultiplayerService.joinedGame !== game) {
+            if (ServiceHelper.joinedGame !== null && ServiceHelper.joinedGame !== game) {
                 this.pendingScreenToOpen = game;
                 this.modalService.open('close-game');
             }

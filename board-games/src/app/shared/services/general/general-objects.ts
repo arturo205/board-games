@@ -1,5 +1,6 @@
 import { Games } from "app/logic/games";
 import { Player } from "app/shared/player";
+import { Injectable } from "@angular/core";
 
 export class ServiceHelper {
 

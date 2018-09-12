@@ -1,6 +1,6 @@
 import { Player } from "app/shared/player";
 
-export class ConnectFourSummaryElement {
+export class summaryElement {
 
     public id: number;
     public player1: Player;

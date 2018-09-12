@@ -121,42 +121,42 @@
                 </div>
                 <div class="row">
                     <p class="labels">Name:</p>
-                    <input #updateName name="update-name" class="text-field" type="text" value="{{multiplayerService.currentPlayer.name}}" disabled>
+                    <input #updateName name="update-name" class="text-field" type="text" value="{{multiplayerService.getCurrentPlayer().name}}" disabled>
                 </div>
                 <div class="row">
                     <p class="labels">Password:</p>
-                    <input #updatePassword name="update-password" class="text-field" type="password" value="{{multiplayerService.currentPlayer.password}}">
+                    <input #updatePassword name="update-password" class="text-field" type="password" value="{{multiplayerService.getCurrentPlayer().password}}">
                 </div>
                 <div class="row">
                     <div>
                         <div class="row">
                             <p class="labels">Color:</p>
                             <select name="update-user-color" class="icons-menu">
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 0" value="0">Red</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 1" value="1">Blue</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 2" value="2">Yellow</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 3" value="3">Orange</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 4" value="4">Purple</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 5" value="5">Brown</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 6" value="6">Green</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 7" value="7">Dark Green</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 8" value="8">Dark Blue</option>
-                                <option [selected]="multiplayerService.currentPlayer.colorId === 9" value="9">Gray</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 0" value="0">Red</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 1" value="1">Blue</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 2" value="2">Yellow</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 3" value="3">Orange</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 4" value="4">Purple</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 5" value="5">Brown</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 6" value="6">Green</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 7" value="7">Dark Green</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 8" value="8">Dark Blue</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().colorId === 9" value="9">Gray</option>
                             </select>
                         </div>
                         <div class="row">
                             <p class="labels">Icon:</p>
                             <select name="update-user-icon" class="icons-menu">
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 0" value="0">Icon 1</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 1" value="1">Icon 2</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 2" value="2">Icon 3</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 3" value="3">Icon 4</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 4" value="4">Icon 5</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 5" value="5">Icon 6</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 6" value="6">Icon 7</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 7" value="7">Icon 8</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 8" value="8">Icon 9</option>
-                                <option [selected]="multiplayerService.currentPlayer.iconId === 9" value="9">Icon 10</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 0" value="0">Icon 1</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 1" value="1">Icon 2</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 2" value="2">Icon 3</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 3" value="3">Icon 4</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 4" value="4">Icon 5</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 5" value="5">Icon 6</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 6" value="6">Icon 7</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 7" value="7">Icon 8</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 8" value="8">Icon 9</option>
+                                <option [selected]="multiplayerService.getCurrentPlayer().iconId === 9" value="9">Icon 10</option>
                             </select>
                         </div>
                     </div>

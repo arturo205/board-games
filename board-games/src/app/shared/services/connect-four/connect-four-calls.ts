@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ConnectFourStatus } from "app/logic/connect-four/server/connect-four-status";
-import { ConnectFourSummaryElement } from "app/logic/connect-four/server/connect-four-summary-element";
-import { MultiplayerService } from "app/shared/services/multiplayer.service";
+import { summaryElement } from "app/logic/connect-four/server/connect-four-summary-element";
 import { Observable } from "rxjs";
 import { Games } from "app/logic/games";
 import { ServiceHelper } from "app/shared/services/general/general-objects";
@@ -9,15 +8,15 @@ import { ServiceHelper } from "app/shared/services/general/general-objects";
 @Injectable()
 export class ConnectFourService {
 
-    public serverConnectFourStatus: ConnectFourStatus;
-    public localConnectFourSquares: Array<string>;
-    public connectFourSummary: ConnectFourSummaryElement;
+    public serverStatus: ConnectFourStatus;
+    public localSquares: Array<string>;
+    public summary: summaryElement;
 
     public constructor() {
 
-        this.serverConnectFourStatus = new ConnectFourStatus(-1);
-        this.localConnectFourSquares = new Array<string>();
-        this.connectFourSummary = null;
+        this.serverStatus = new ConnectFourStatus(-1);
+        this.localSquares = new Array<string>();
+        this.summary = null;
 
     }
 
@@ -38,7 +37,7 @@ export class ConnectFourService {
     public addListeners(): void {
 
         this.onConnectFourStatus().subscribe((status: ConnectFourStatus) => {
-            this.serverConnectFourStatus = status;
+            this.serverStatus = status;
             this.updateLocalConnectFourObjects();
         });
 
@@ -48,18 +47,18 @@ export class ConnectFourService {
 
         ServiceHelper.joinedGame = this.playerJoinedConnectFour() ? Games.ConnectFour : null;
 
-        this.serverConnectFourStatus.squaresStatus.forEach((serverPlayerObj, index) => {
+        this.serverStatus.squaresStatus.forEach((serverPlayerObj, index) => {
             
-            if (serverPlayerObj !== null && this.serverConnectFourStatus.playersConnected.length === 2) {
-                if (serverPlayerObj.name === this.serverConnectFourStatus.playersConnected[0].name) {
-                    this.localConnectFourSquares[index] = "player1";
+            if (serverPlayerObj !== null && this.serverStatus.playersConnected.length === 2) {
+                if (serverPlayerObj.name === this.serverStatus.playersConnected[0].name) {
+                    this.localSquares[index] = "player1";
                 }
-                else if (serverPlayerObj.name === this.serverConnectFourStatus.playersConnected[1].name) {
-                    this.localConnectFourSquares[index] = "player2";
+                else if (serverPlayerObj.name === this.serverStatus.playersConnected[1].name) {
+                    this.localSquares[index] = "player2";
                 }
             }
-            else if (serverPlayerObj === null && this.serverConnectFourStatus.playersConnected.length === 2) {
-                this.localConnectFourSquares[index] = "empty";
+            else if (serverPlayerObj === null && this.serverStatus.playersConnected.length === 2) {
+                this.localSquares[index] = "empty";
             }
         });
 
@@ -69,7 +68,7 @@ export class ConnectFourService {
 
         let playerIsInArray: boolean = false;
 
-        this.serverConnectFourStatus.playersConnected.forEach(player => {
+        this.serverStatus.playersConnected.forEach(player => {
             if (player.name === ServiceHelper.currentPlayer.name) {
                 playerIsInArray = true;
             }
