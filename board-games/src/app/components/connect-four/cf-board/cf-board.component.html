@@ -1,10 +1,10 @@
 <section>
-    <!--<div class="messages-panel" [ngClass]="{'red-turn': getTurnColor() === 'red', 
+    <div class="messages-panel" [ngClass]="{'red-turn': getTurnColor() === 'red', 
                 'blue-turn': getTurnColor() === 'blue', 
                 'victory': getTurnColor() === 'green'}">
         <p *ngIf="multiplayerService.getGeneralMessage() !== null && multiplayerService.getGeneralMessage().length > 0">{{ multiplayerService.getGeneralMessage() }}</p>
         <p *ngIf="multiplayerService.getGeneralMessage() === null || multiplayerService.getGeneralMessage().length < 5">{{ welcomeMessage }}</p>
-    </div>-->
+    </div>
     <div class="cf-board-layout">
         <ng-template #dynamicBoard></ng-template>
     </div>

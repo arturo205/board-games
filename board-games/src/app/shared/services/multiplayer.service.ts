@@ -220,7 +220,7 @@ export class MultiplayerService {
             });
 
             this.ticTacToe.addListeners();
-            this.ticTacToe.addListeners();
+            this.connectFour.addListeners();
         }
 
     }
@@ -251,6 +251,7 @@ export class MultiplayerService {
     private loadAllGamesSummary(): void {
 
         ServiceHelper.socket.emit('ticTacToeSummary');
+        ServiceHelper.socket.emit('connectFourSummary');
 
     }
 

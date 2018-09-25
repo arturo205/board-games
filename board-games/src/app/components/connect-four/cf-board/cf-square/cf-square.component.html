@@ -1,6 +1,20 @@
-<div [ngClass]="selectedClass" 
+<!--<div [ngClass]="selectedClass" 
      [style.width.px]="customWidth"
      [style.height.px]="customHeight"
      [style.margin.px]="customMargin"
      (click)="onClick()">
+</div>-->
+<div class="square-layout"
+    [style.width.px]="customWidth"
+    [style.height.px]="customHeight"
+    [style.margin.px]="customMargin"
+     (click)="onClick()" 
+     [ngClass]="{'circle-layout': getLayoutType() === 'player1', 
+                 'cross-layout': getLayoutType() === 'player2', 
+                 'empty-layout': getLayoutType() === 'empty', 
+                 'winner-layout': getLayoutType() === 'winner',
+                 'non-winner-layout': getLayoutType() === 'nonWinner'}">
+  <p class="square-p" *ngIf="multiplayerService.connectFour.localSquares.length === 9">
+    {{ multiplayerService.connectFour.localSquares[id] }}
+  </p>
 </div>

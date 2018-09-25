@@ -3,6 +3,7 @@ import { CfBoardComponent } from 'app/components/connect-four/cf-board/cf-board.
 import { MultiplayerService } from 'app/shared/services/multiplayer.service';
 import { ModalService } from 'app/shared/services/modal.service';
 import { AllGames } from 'app/logic/games';
+import { ConnectFourSummaryElement } from 'app/logic/connect-four/server/connect-four-summary-element';
 
 @Component({
     selector: 'app-connect-four',
@@ -14,6 +15,7 @@ export class ConnectFourComponent implements OnInit {
 
     public boardWidthChoices: Array<number> = [7, 8, 9, 10, 11, 12, 13, 14, 15];
     public boardHeightChoices: Array<number> = [6, 7, 8, 9, 10, 11, 12];
+    private boardDrawn: boolean = false;
 
     constructor(public multiplayerService: MultiplayerService, private modalService: ModalService) { }
 
@@ -25,19 +27,19 @@ export class ConnectFourComponent implements OnInit {
 
     public restartGame(): void {
 
-        //this.board.resetBoard();
+        this.board.resetBoard();
 
     }
 
     public joinGame(gameId: number): void {
 
-        //this.multiplayerService.joinTicTacToeGame(gameId);
+        this.multiplayerService.connectFour.joinConnectFourGame(gameId);
 
     }
 
     public leaveGame(): void {
 
-        //this.multiplayerService.leaveTicTacToe();
+        this.multiplayerService.connectFour.leaveConnectFour();
 
     }
 
@@ -50,25 +52,29 @@ export class ConnectFourComponent implements OnInit {
      */
     public getGameStatus(): number {
 
-        /*let status: number = -1;
+        let status: number = -1;
 
-        if (this.multiplayerService.serverStatus.playersConnected.length === 0) {
+        if (this.multiplayerService.connectFour.serverStatus.playersConnected.length === 0) {
             status = 0;
+            this.boardDrawn = false;
         }
-        else if (this.multiplayerService.serverStatus.playersConnected.length === 1) {
+        else if (this.multiplayerService.connectFour.serverStatus.playersConnected.length === 1) {
             status = 1;
+            this.boardDrawn = false;
         }
-        else if (this.multiplayerService.serverStatus.playersConnected.length === 2) {
+        else if (this.multiplayerService.connectFour.serverStatus.playersConnected.length === 2) {
             status = 2;
+            if (this.boardDrawn === false && this.board != undefined && this.board != null) {
+                this.board.drawBoard(this.multiplayerService.connectFour.serverStatus.boardWidth, this.multiplayerService.connectFour.serverStatus.boardHeight);
+                this.boardDrawn = true;
+            }
         }
 
-        return status;*/
-
-        return 0;
+        return status;
 
     }
 
-    /*public getSummaryGameStatus(summary: summaryElement): number {
+    public getSummaryGameStatus(summary: ConnectFourSummaryElement): number {
 
         let status: number = -1;
 
@@ -81,13 +87,13 @@ export class ConnectFourComponent implements OnInit {
 
         return status;
 
-    }*/
+    }
 
     public getPlayersMessage(): string {
 
-        /*let message: string = "";
+        let message: string = "";
 
-        switch (this.multiplayerService.serverStatus.playersConnected.length) {
+        switch (this.multiplayerService.connectFour.serverStatus.playersConnected.length) {
             case 0:
                 message = "Waiting for players to join!";
                 break;
@@ -102,13 +108,11 @@ export class ConnectFourComponent implements OnInit {
                 break;
         }
 
-        return message;*/
-
-        return "";
+        return message;
 
     }
 
-    /*public getSummaryMessageForGameInstance(summary: summaryElement) {
+    public getSummaryMessageForGameInstance(summary: ConnectFourSummaryElement) {
 
         let message: string = "";
 
@@ -121,14 +125,12 @@ export class ConnectFourComponent implements OnInit {
 
         return message;
 
-    }*/
+    }
 
     public createNewGame(): void {
 
         let boardWidth: number = this.getValueFromSelect("boardWidthSelect");
         let boardHeight =  this.getValueFromSelect("boardHeightSelect");
-        //this.board.drawBoard(boardWidth, boardHeight);
-        //this.multiplayerService.newTicTacToeGame();
         this.multiplayerService.connectFour.newConnectFourGame(boardWidth, boardHeight);
 
     }

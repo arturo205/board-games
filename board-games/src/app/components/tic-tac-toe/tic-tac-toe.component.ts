@@ -3,7 +3,7 @@ import { BoardComponent } from './board/board.component';
 import { MultiplayerService } from '../../shared/services/multiplayer.service';
 import { ModalService } from '../../shared/services/modal.service';
 import { AllGames } from 'app/logic/games';
-import { summaryElement } from '../../logic/tic-tac-toe/server/tic-tac-toe-summary-element';
+import { TicTacToeSummaryElement } from '../../logic/tic-tac-toe/server/tic-tac-toe-summary-element';
 import { Score } from 'app/shared/score';
 
 @Component({
@@ -65,7 +65,7 @@ export class TicTacToeComponent implements OnInit {
 
     }
 
-    public getSummaryGameStatus(summary: summaryElement): number {
+    public getSummaryGameStatus(summary: TicTacToeSummaryElement): number {
 
         let status: number = -1;
 
@@ -103,7 +103,7 @@ export class TicTacToeComponent implements OnInit {
 
     }
 
-    public getSummaryMessageForGameInstance(summary: summaryElement) {
+    public getSummaryMessageForGameInstance(summary: TicTacToeSummaryElement) {
 
         let message: string = "";
 

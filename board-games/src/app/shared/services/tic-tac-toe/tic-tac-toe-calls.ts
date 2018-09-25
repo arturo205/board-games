@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { TicTacToeStatus } from "app/logic/tic-tac-toe/server/tic-tac-toe-status";
-import { summaryElement } from "app/logic/tic-tac-toe/server/tic-tac-toe-summary-element";
+import { TicTacToeSummaryElement } from "app/logic/tic-tac-toe/server/tic-tac-toe-summary-element";
 import { Observable } from "rxjs";
 import { SystemMessage } from "app/shared/system-message";
 import { TicTacToeMove } from "app/logic/tic-tac-toe/server/tic-tac-toe-move";
@@ -12,7 +12,7 @@ export class TicTacToeService {
 
     public serverStatus: TicTacToeStatus;
     public localSquares: Array<string>;
-    public summary: summaryElement;
+    public summary: TicTacToeSummaryElement;
 
     public constructor() {
 
@@ -56,9 +56,9 @@ export class TicTacToeService {
         this.serverStatus = new TicTacToeStatus(-1);
     }
 
-    public onsummary(): Observable<summaryElement> {
-        return new Observable<summaryElement>(observer => {
-            ServiceHelper.socket.on('ticTacToeSummary', (summaryElement: summaryElement) => observer.next(summaryElement));
+    public onsummary(): Observable<TicTacToeSummaryElement> {
+        return new Observable<TicTacToeSummaryElement>(observer => {
+            ServiceHelper.socket.on('ticTacToeSummary', (summaryElement: TicTacToeSummaryElement) => observer.next(summaryElement));
         });
     }
 
@@ -77,7 +77,7 @@ export class TicTacToeService {
             this.serverStatus.systemMessage = message;
         });
 
-        this.onsummary().subscribe((summaryElement: summaryElement) => {
+        this.onsummary().subscribe((summaryElement: TicTacToeSummaryElement) => {
             this.summary = summaryElement;
         });
 

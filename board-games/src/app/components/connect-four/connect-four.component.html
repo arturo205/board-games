@@ -32,7 +32,7 @@
             </div>
             <div *ngIf="getGameStatus() === 0" class="groups groups-container">
                 <h1 class="title">CREATED GAMES</h1>
-                <!--<div *ngFor="let summaryElement of multiplayerService.summary">
+                <div *ngFor="let summaryElement of multiplayerService.connectFour.summary">
                     <div class="subgroup">
                         <div class="row">
                             <div *ngIf="summaryElement.player1 !== null" [ngClass]="{'col-md-12': summaryElement.player2 === null, 'col-md-5': summaryElement.player2 !== null}" class="row">
@@ -51,7 +51,7 @@
                                 <p class="current-game-message">{{ summaryElement.player2.name }}</p>
                             </div>
                         </div>
-                        <div class="tic-tac-toe-message">
+                        <div class="connect-four-message">
                             <p>{{ getSummaryMessageForGameInstance(summaryElement) }}</p>
                         </div>
                         <div class="row">
@@ -60,13 +60,13 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="multiplayerService.summary.length === 0" class="subgroup">
+                <div *ngIf="multiplayerService.connectFour.summary.length === 0" class="subgroup">
                     <div style="text-align: center;">
                         <img src="assets/images/empty.png" width="60" height="60"/>
-                        <p class="tic-tac-toe-message">There are no games being played now.</p>
-                        <p class="tic-tac-toe-message">Please create a new one.</p>
+                        <p class="connect-four-message">There are no games being played now.</p>
+                        <p class="connect-four-message">Please create a new one.</p>
                     </div>
-                </div>-->
+                </div>
             </div>
             <div *ngIf="getGameStatus() === 1" class="groups groups-container">
                 <h1 class="title">NEW GAME</h1>
@@ -79,37 +79,37 @@
                     </div>
                 </div>
                 <div class="row vertical-padding-10">
-                    <p class="tic-tac-toe-message">Waiting for players to join...</p>
+                    <p class="connect-four-message">Waiting for players to join...</p>
                 </div>
                 <div class="row vertical-padding-10">
                     <button class="buttons" (click)="leaveGame()">Leave</button>
                 </div>
             </div>
-            <!--<div *ngIf="getGameStatus() === 2" class="groups groups-container">
+            <div *ngIf="getGameStatus() === 2" class="groups groups-container">
                 <h1 class="title">CURRENT GAME</h1>
                 <div class="row">
-                    <div *ngIf="multiplayerService.serverStatus.playersConnected.length >= 1" class="row col-md-5">
-                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverStatus.playersConnected[0].colorId)">
-                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverStatus.playersConnected[0].iconId) }}" height="36" width="36">
+                    <div *ngIf="multiplayerService.connectFour.serverStatus.playersConnected.length >= 1" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.connectFour.serverStatus.playersConnected[0].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.connectFour.serverStatus.playersConnected[0].iconId) }}" height="36" width="36">
                         </div>
-                        <p class="current-game-message">{{ multiplayerService.serverStatus.playersConnected[0].name }}</p>
+                        <p class="current-game-message">{{ multiplayerService.connectFour.serverStatus.playersConnected[0].name }}</p>
                     </div>
-                    <div *ngIf="multiplayerService.serverStatus.playersConnected.length >= 2" class="row col-md-2">
+                    <div *ngIf="multiplayerService.connectFour.serverStatus.playersConnected.length >= 2" class="row col-md-2">
                         <p class="remark-message"> VS </p>
                     </div>
-                    <div *ngIf="multiplayerService.serverStatus.playersConnected.length >= 2" class="row col-md-5">
-                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.serverStatus.playersConnected[1].colorId)">
-                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.serverStatus.playersConnected[1].iconId) }}" height="36" width="36">
+                    <div *ngIf="multiplayerService.connectFour.serverStatus.playersConnected.length >= 2" class="row col-md-5">
+                        <div class="icon-holder" [style.backgroundColor]="getIconColor(multiplayerService.connectFour.serverStatus.playersConnected[1].colorId)">
+                            <img style="margin-left: 0px;" src="{{ getIconImage(multiplayerService.connectFour.serverStatus.playersConnected[1].iconId) }}" height="36" width="36">
                         </div>
-                        <p class="current-game-message">{{ multiplayerService.serverStatus.playersConnected[1].name }}</p>
+                        <p class="current-game-message">{{ multiplayerService.connectFour.serverStatus.playersConnected[1].name }}</p>
                     </div>
                 </div>
                 <div class="row">
                     <button *ngIf="getGameStatus() === 2" class="buttons" (click)="restartGame()">Restart</button>
                     <button *ngIf="getGameStatus() === 1 || getGameStatus() === 2" class="buttons" (click)="leaveGame()">Leave</button>
                 </div>
-            </div>-->
-            <div *ngIf="getGameStatus() === 0" class="groups groups-container">
+            </div>
+            <div *ngIf="getGameStatus() === 2" class="groups groups-container">
                 <app-cf-board #board></app-cf-board>
             </div>
         </div>

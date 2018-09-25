@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
 import { ConnectFourStatus } from "app/logic/connect-four/server/connect-four-status";
-import { summaryElement } from "app/logic/connect-four/server/connect-four-summary-element";
+import { ConnectFourSummaryElement } from "app/logic/connect-four/server/connect-four-summary-element";
 import { Observable } from "rxjs";
 import { Games } from "app/logic/games";
 import { ServiceHelper } from "app/shared/services/general/general-objects";
+import { SystemMessage } from "app/shared/system-message";
+import { ConnectFourMove } from "app/logic/connect-four/server/connect-four-move";
 
 @Injectable()
 export class ConnectFourService {
 
     public serverStatus: ConnectFourStatus;
     public localSquares: Array<string>;
-    public summary: summaryElement;
+    public summary: ConnectFourSummaryElement;
 
     public constructor() {
 
@@ -34,11 +36,45 @@ export class ConnectFourService {
         });
     }
 
+    public onConnectFourSystemMessage(): Observable<SystemMessage> {
+        return new Observable<SystemMessage>(observer => {
+            ServiceHelper.socket.on('connectFourSystemMessage', (message: SystemMessage) => observer.next(message));
+        });
+    }
+
+    public onsummary(): Observable<ConnectFourSummaryElement> {
+        return new Observable<ConnectFourSummaryElement>(observer => {
+            ServiceHelper.socket.on('connectFourSummary', (summaryElement: ConnectFourSummaryElement) => observer.next(summaryElement));
+        });
+    }
+
+    public resetConnectFour(): void {
+        ServiceHelper.socket.emit('resetConnectFour', this.serverStatus.gameId);
+    }
+
+    public leaveConnectFour(): void {
+        ServiceHelper.socket.emit('leaveConnectFour', ServiceHelper.currentPlayer, this.serverStatus.gameId);
+        ServiceHelper.joinedGame = null;
+        this.serverStatus = new ConnectFourStatus(-1);
+    }
+
+    public sendMove(move: ConnectFourMove): void {
+        ServiceHelper.socket.emit('performConnectFourMove', move, this.serverStatus.gameId);
+    }
+
     public addListeners(): void {
 
         this.onConnectFourStatus().subscribe((status: ConnectFourStatus) => {
             this.serverStatus = status;
             this.updateLocalConnectFourObjects();
+        });
+
+        this.onConnectFourSystemMessage().subscribe((message: SystemMessage) => {
+            this.serverStatus.systemMessage = message;
+        });
+
+        this.onsummary().subscribe((summaryElement: ConnectFourSummaryElement) => {
+            this.summary = summaryElement;
         });
 
     }

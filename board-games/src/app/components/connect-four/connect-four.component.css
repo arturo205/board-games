@@ -1,0 +1,38 @@
+.connect-four-message {
+    text-align: center;
+    margin: auto;
+    color: rgb(47, 77, 122);
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.current-game-message {
+    text-align: center;
+    margin: auto;
+    color: rgb(40, 103, 199);
+    font-weight: 600;
+    font-size: 17px;
+    padding: 10px 0px 10px 0px;
+}
+
+.remark-message {
+    text-align: center;
+    margin: auto;
+    color: rgb(179, 0, 0);
+    font-weight: 700;
+    font-size: 21px;
+    padding: 10px 0px 10px 0px;
+}
+
+.icon-holder {
+    height: 40px;
+    width: 40px;
+    content: "";
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px black solid;
+}
